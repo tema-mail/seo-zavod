@@ -1,4 +1,4 @@
-// Экраны прототипа, часть 3: новые станции «Техника», «Замер и рост», «Карты и отзывы». Данные — пример.
+// Экраны прототипа, часть 3: новые станции «Техника», «Замер и рост», «Карты и отзывы». Данные – пример.
 (function () {
   const D = window.PROTO, U = window.UI;
   const e = U.esc, ic = U.icon, owner = window.UI_OWNER, siteCrumbs = window.UI_SITECRUMBS;
