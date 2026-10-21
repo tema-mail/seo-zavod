@@ -6,7 +6,7 @@
   function sitePlan() {
     const actions = S.approved
       ? `<a class="btn primary" href="#site-articles">Что дальше</a><button class="btn" type="button" id="suggest">${ic("plus", "ic-s")}Предложить тему</button>`
-      : `<button class="btn primary" type="button" id="approvePlan">${ic("check", "ic-s")}Всё верно — начинаем</button><button class="btn" type="button" id="suggest">${ic("plus", "ic-s")}Предложить тему</button>`;
+      : `<button class="btn primary" type="button" id="approvePlan">${ic("check", "ic-s")}Всё верно – начинаем</button><button class="btn" type="button" id="suggest">${ic("plus", "ic-s")}Предложить тему</button>`;
     const whenChip = { "Сначала": "ink", "Потом": "", "Позже": "" };
     const mapTable = `<div class="table-wrap"><table><thead><tr><th>Группа запросов</th><th class="n">В месяц</th><th>Страница</th><th>Что делаем</th></tr></thead>
       <tbody>${D.map.map((m) => `<tr><td><b>${e(m.q)}</b><span class="small muted" style="display:block">${e(m.why)}</span></td><td class="n">${m.n}</td><td>${e(m.type)} · ${e(m.url)}</td><td>${U.chip(m.act, m.act === "Не делать" ? "warn" : m.act === "Склеить" ? "need" : "")}</td></tr>`).join("")}</tbody></table></div>`;
@@ -60,7 +60,7 @@
           <div class="head-actions"><button class="btn primary sm" type="button" id="rmSend">Отправить</button></div></div><p class="okmsg" id="artDone" hidden></p></div>${checked}</section>
         ${question}
         <article class="card article-body"><span class="kicker">${A.kind} · ведёт к услуге «${e(A.leads)}»</span><h3>${e(A.title)}</h3>
-          <p class="lead">${e(A.answerA)}${ok ? e(A.value) : "[цена — ждёт вашего ответа]"}${e(A.answerB)}</p><p style="margin:0">${e(A.body)}</p>
+          <p class="lead">${e(A.answerA)}${ok ? e(A.value) : "[цена – ждёт вашего ответа]"}${e(A.answerB)}</p><p style="margin:0">${e(A.body)}</p>
           <button class="btn ghost sm" type="button" style="justify-self:start">Читать целиком</button></article>
       </div>`;
   }
@@ -82,19 +82,19 @@
 
   function report(isClient) {
     const items = [["sparkles", "Что сделали", "Вышли 3 статьи. Факт №1: статья про robots.txt уже на 8 месте в Яндексе."],
-      ["trending-up", "Что сработало", "Факт №2: редкие вопросы выходят на первую страницу поиска за 2–3 недели — пишем их дальше."],
-      ["clock", "Что не вышло и что делаем", "Факт №3: Google пока видит 4 статьи из 7 — сайт новый, для первых месяцев это нормально. Ждём."]];
+      ["trending-up", "Что сработало", "Факт №2: редкие вопросы выходят на первую страницу поиска за 2–3 недели – пишем их дальше."],
+      ["clock", "Что не вышло и что делаем", "Факт №3: Google пока видит 4 статьи из 7 – сайт новый, для первых месяцев это нормально. Ждём."]];
     return `${U.head("Сайт растёт: в поиске показывают в 2 раза чаще", "Данные на сегодня, 09:00")}
-      ${U.stats([["около 1 200", "раз за неделю сайт показали в поиске — было около 600"], ["37", "человек перешли на сайт из поиска"], ["5", "статей вышло за месяц"]])}
+      ${U.stats([["около 1 200", "раз за неделю сайт показали в поиске – было около 600"], ["37", "человек перешли на сайт из поиска"], ["5", "статей вышло за месяц"]])}
       <section class="card"><div class="rows">${items.map(([i, t, x]) => `<div class="rowi"><span class="ic-wrap">${ic(i, "ic-s")}</span><div class="body"><b>${t}</b><span style="font-size:14px;color:var(--graphite)">${x}</span></div></div>`).join("")}
         <a class="rowi" href="#${isClient ? "client-article" : "site-article"}"><span class="ic-wrap">${ic("message-square", "ic-s")}</span><div class="body"><b>Что нужно от вас</b><span>Ответить на 1 вопрос о цене</span></div><div class="end">${U.dot("need")}${ic("chevron-right", "ic-s")}</div></a>
       </div></section>
-      <p class="small muted" style="margin:0">Отчёт обновляется каждый день и сравнивает с прошлой неделей. Нашли ошибку в факте — напишите номер, например «факт №3», завод поправит.</p>`;
+      <p class="small muted" style="margin:0">Отчёт обновляется каждый день и сравнивает с прошлой неделей. Нашли ошибку в факте – напишите номер, например «факт №3», завод поправит.</p>`;
   }
 
   function siteAbout() {
     const paceNote = S.pace <= 3 ? "Для нового сайта безопасно до 3 в неделю." : "Рискованно для нового сайта: частые статьи поисковик может принять за спам. Решать вам.";
-    return owner("site-about", siteCrumbs("О сайте"), `${U.head("Что завод знает о сайте", "Здесь нет настроек «на всякий случай» — только то, что можно поправить.")}
+    return owner("site-about", siteCrumbs("О сайте"), `${U.head("Что завод знает о сайте", "Здесь нет настроек «на всякий случай» – только то, что можно поправить.")}
       <div class="grid g2">
         ${U.card("Темп выкладки", "gauge", `<div class="card-b"><div class="head-actions" style="align-items:center"><span>Статей в неделю</span>
           <span class="stepper"><button type="button" data-pace="-1" aria-label="Меньше">−</button><b class="mono">${S.pace}</b><button type="button" data-pace="1" aria-label="Больше">+</button></span></div>
@@ -102,9 +102,9 @@
         ${U.card("Автопилот", "zap", `<div class="card-b"><label class="switch"><input type="checkbox" id="auto" ${S.autopilot ? "checked" : ""}><span>${S.autopilot ? "Автопилот включён" : "Включить автопилот"}</span></label>
           <p class="small muted" style="margin:0">${S.autopilot ? "Статьи с зелёной проверкой выходят сами. Страницы услуг, склейки и ссылки со старых страниц всё равно ждут «ок»." : "Сейчас каждая статья ждёт «ок»."}</p></div>`)}
         ${U.card("О бизнесе", "building-2", `<div class="card-b"><p class="why">${e(D.passport.business)}. Регион: ${e(D.passport.region)}.</p><p class="small muted" style="margin:0">Чего не пишем: ${e(D.passport.never)}.</p><button class="btn ghost sm" type="button" style="justify-self:start">${ic("pencil", "ic-s")}Поправить</button></div>`)}
-        ${U.card("Поиск", "search", `<div class="card-b"><p class="why">Яндекс Вебмастер не подключён — без него завод не видит, по каким запросам вас уже находят.</p><button class="btn sm" type="button" style="justify-self:start">Подключить</button></div>`, U.chip("не подключён", "warn"))}
+        ${U.card("Поиск", "search", `<div class="card-b"><p class="why">Яндекс Вебмастер не подключён – без него завод не видит, по каким запросам вас уже находят.</p><button class="btn sm" type="button" style="justify-self:start">Подключить</button></div>`, U.chip("не подключён", "warn"))}
         ${U.card("Оформление статей", "palette", `<div class="card-b"><p class="why">Снято с вашего сайта: тёмный текст на светлом фоне, шрифт Onest.</p><button class="btn ghost sm" type="button" style="justify-self:start">${ic("pencil", "ic-s")}Поправить</button></div>`)}
-        ${U.card("Филиалы", "map-pin", `<div class="card-b"><p class="why">Работаете онлайн по всей России — филиалов нет.</p></div>`)}
+        ${U.card("Филиалы", "map-pin", `<div class="card-b"><p class="why">Работаете онлайн по всей России – филиалов нет.</p></div>`)}
       </div>`);
   }
 
@@ -114,10 +114,10 @@
       <section class="card"><div class="rows">
         <a class="rowi" href="#client-article"><span class="ic-wrap">${ic("file-text", "ic-s")}</span><div class="body"><b>2 статьи ждут вашего «ок»</b><span>Сколько стоит ремонт однокомнатной квартиры · Как выбрать бригаду</span></div><div class="end">${U.dot("need")}${ic("chevron-right", "ic-s")}</div></a>
         <a class="rowi" href="#client-questions"><span class="ic-wrap">${ic("message-square", "ic-s")}</span><div class="body"><b>1 вопрос от завода</b><span>Даёте ли вы гарантию на работы и на какой срок?</span></div><div class="end">${ic("chevron-right", "ic-s")}</div></a>
-        <a class="rowi" href="#client-report"><span class="ic-wrap">${ic("trending-up", "ic-s")}</span><div class="body"><b>Сайт растёт</b><span>В поиске показали около 900 раз за неделю — в полтора раза больше, чем неделю назад</span></div><div class="end">${ic("chevron-right", "ic-s")}</div></a>
+        <a class="rowi" href="#client-report"><span class="ic-wrap">${ic("trending-up", "ic-s")}</span><div class="body"><b>Сайт растёт</b><span>В поиске показали около 900 раз за неделю – в полтора раза больше, чем неделю назад</span></div><div class="end">${ic("chevron-right", "ic-s")}</div></a>
       </div></section>`);
   }
-  function clientArticle() { return client("client-article", [["Главное", "client"], ["На согласование", ""]], `${U.head(e(D.articleClient.title), "Прочитайте и согласуйте — или напишите, что поправить.")}${articleView(true)}`); }
+  function clientArticle() { return client("client-article", [["Главное", "client"], ["На согласование", ""]], `${U.head(e(D.articleClient.title), "Прочитайте и согласуйте – или напишите, что поправить.")}${articleView(true)}`); }
   function clientQuestions() {
     if (S.clientAnswered) {
       return client("client-questions", [["Главное", "client"], ["Вопросы", ""]], `<section class="card empty">${ic("circle-check")}<h1 style="font-size:24px">Вопросов нет</h1>
