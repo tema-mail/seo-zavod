@@ -42,7 +42,7 @@
       af.addEventListener("submit", (e) => {
         e.preventDefault();
         const v = $("url").value.trim();
-        if (!/\.[a-zа-яё]{2,}$/i.test(v)) { $("addErr").textContent = "Это не похоже на адрес сайта — пример: сеоконтентзавод.рф"; return; }
+        if (!/\.[a-zа-яё]{2,}$/i.test(v)) { $("addErr").textContent = "Это не похоже на адрес сайта – пример: сеоконтентзавод.рф"; return; }
         go("site-intro");
       });
       $("url").addEventListener("input", () => { $("addErr").textContent = ""; });
@@ -53,7 +53,7 @@
     if ($("saveKey")) {
       $("saveKey").addEventListener("click", () => {
         const v = $("key").value.trim();
-        $("keyNote").textContent = v ? "В прототипе ключ не сохраняется. В заводе он будет проверен и показан как «sk-…» с последними четырьмя знаками." : "Вставьте ключ — поле пустое.";
+        $("keyNote").textContent = v ? "В прототипе ключ не сохраняется. В заводе он будет проверен и показан как «sk-…» с последними четырьмя знаками." : "Вставьте ключ – поле пустое.";
       });
     }
 
@@ -78,7 +78,7 @@
         $("sgErr").style.color = "";
         if (!v) { $("sgErr").textContent = "Напишите тему, например: как выбрать SEO-подрядчика"; return; }
         $("sgErr").style.color = "var(--graphite)";
-        $("sgErr").textContent = "Ищут около 140 раз в месяц — добавил в план, тип «Выбор», очередь «Потом». (Пример ответа завода.)";
+        $("sgErr").textContent = "Ищут около 140 раз в месяц – добавил в план, тип «Выбор», очередь «Потом». (Пример ответа завода.)";
       });
     }
 
@@ -88,7 +88,7 @@
     // Статья: вопрос и согласование
     ["artYes", "artYes2", "artSkip"].forEach((id) => { if ($(id)) $(id).addEventListener("click", () => { S.articleAnswered = true; window.PROTO_RENDER(); }); });
     if ($("approveArt")) $("approveArt").addEventListener("click", () => {
-      $("artDone").hidden = false; $("artDone").textContent = "Согласовано. Статья в очереди на сайт — выйдет во вторник.";
+      $("artDone").hidden = false; $("artDone").textContent = "Согласовано. Статья в очереди на сайт – выйдет во вторник.";
     });
     if ($("remark")) $("remark").addEventListener("click", () => { $("remarkBox").hidden = false; $("rm").focus(); });
     if ($("rmSend")) $("rmSend").addEventListener("click", () => {

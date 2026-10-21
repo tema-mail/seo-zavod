@@ -1,6 +1,6 @@
 /* Тихая записка внутри оболочки продукта: левое меню, шапка, рабочая область.
-   Кремовая бумага и чернила; цвет — только в конвейере. Одна светлая тема — осознанно.
-   Скругления: таблетка — кнопки и метки, 14px — карточки, поля, меню. */
+   Кремовая бумага и чернила; цвет – только в конвейере. Одна светлая тема – осознанно.
+   Скругления: таблетка – кнопки и метки, 14px – карточки, поля, меню. */
 :root {
   --canvas: #fdfcfc;
   --surface: #f5f3f1;
@@ -164,7 +164,7 @@ h2 { font: 300 19px/1.25 var(--f-display); letter-spacing: -0.01em; margin: 0; }
 .flow span { font-size: 12px; color: var(--smoke); line-height: 1.35; }
 .future b { color: var(--smoke); font-weight: 400; }
 
-/* мини-конвейер в таблице — сегменты */
+/* мини-конвейер в таблице – сегменты */
 .segs { display: grid; grid-template-columns: repeat(9, 10px); gap: 3px; }
 .segs i { height: 6px; border-radius: 999px; background: var(--line); display: block; }
 .segs i.done { background: var(--ink); } .segs i.now { background: var(--blue); } .segs i.wait { background: var(--orange); }

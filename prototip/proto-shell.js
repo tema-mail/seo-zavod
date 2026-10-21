@@ -1,5 +1,5 @@
 // Оболочка продукта: левое меню, шапка, общие детали, переход между экранами.
-// Маршруты — простые якоря (#admin, #site, #site-plan …): так требует страница-артефакт.
+// Маршруты – простые якоря (#admin, #site, #site-plan …): так требует страница-артефакт.
 (function () {
   const D = window.PROTO;
   const UI = (window.UI = {});
@@ -85,7 +85,7 @@
 
   // ---------- оболочка экрана ----------
   UI.shell = (role, cur, crumbs, body) => {
-    const pw = role === "owner" ? `<div class="pw-bar">${UI.icon("info", "ic-s")}<span>Пароль простой — смените его до того, как вставите ключи сервисов. <a href="#admin-models">Сменить пароль</a></span></div>` : "";
+    const pw = role === "owner" ? `<div class="pw-bar">${UI.icon("info", "ic-s")}<span>Пароль простой – смените его до того, как вставите ключи сервисов. <a href="#admin-models">Сменить пароль</a></span></div>` : "";
     const crumbHtml = crumbs.map((c, i) => (i < crumbs.length - 1 ? `<a href="#${c[1]}">${UI.esc(c[0])}</a>${UI.icon("chevron-right", "ic-s")}` : `<b>${UI.esc(c[0])}</b>`)).join("");
     return `<div class="app ${role === "client" ? "client" : ""}">
       <aside class="side${state.menuOpen ? " open" : ""}" id="side">${role === "client" ? sideClient(cur) : sideOwner(cur)}</aside>
@@ -93,9 +93,9 @@
         <header class="topbar">
           <button class="icon-btn menu-btn" type="button" id="menuBtn" aria-label="Меню">${UI.icon("menu")}</button>
           <div class="crumbs">${crumbHtml}</div>
-          <button class="proto-badge" type="button" id="protoBtn" aria-expanded="${state.protoOpen}">Прототип<span class="wide"> · данные — пример</span></button>
+          <button class="proto-badge" type="button" id="protoBtn" aria-expanded="${state.protoOpen}">Прототип<span class="wide"> · данные – пример</span></button>
           <div class="dropdown proto-menu" ${state.protoOpen ? "" : "hidden"}>
-            <a href="#admin">Админка: все сайты</a><a href="#login">Экран входа</a><a href="#admin-empty">Первый вход — сайтов нет</a>
+            <a href="#admin">Админка: все сайты</a><a href="#login">Экран входа</a><a href="#admin-empty">Первый вход – сайтов нет</a>
             <a href="#site-questions">Анкета</a><a href="#client">Кабинет клиента</a>
           </div>
         </header>${pw}
@@ -108,7 +108,7 @@
   window.PROTO_RENDER = () => {
     const key = (location.hash || "#site").slice(1);
     const screens = window.SCREENS;
-    if (!screens) return; // экраны ещё грузятся — нарисуем, когда дойдёт очередь
+    if (!screens) return; // экраны ещё грузятся – нарисуем, когда дойдёт очередь
     app.innerHTML = (screens[key] || screens.site)();
     if (window.lucide) window.lucide.createIcons();
     if (window.PROTO_BIND) window.PROTO_BIND(key);
