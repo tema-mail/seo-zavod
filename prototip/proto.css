@@ -150,7 +150,7 @@ h2 { font: 300 19px/1.25 var(--f-display); letter-spacing: -0.01em; margin: 0; }
 .stat span { font-size: 13px; color: var(--smoke); }
 
 /* ---------- большой конвейер ---------- */
-.flow { list-style: none; margin: 0; padding: 22px 20px 20px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.flow { list-style: none; margin: 0; padding: 22px 20px 20px; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); }
 .flow li { position: relative; padding-right: 10px; }
 .flow a { display: grid; justify-items: start; gap: 8px; }
 .flow li::after { content: ""; position: absolute; top: 17px; left: 40px; right: 0; height: 2px; background: var(--line); }
@@ -165,7 +165,7 @@ h2 { font: 300 19px/1.25 var(--f-display); letter-spacing: -0.01em; margin: 0; }
 .future b { color: var(--smoke); font-weight: 400; }
 
 /* мини-конвейер в таблице — сегменты */
-.segs { display: grid; grid-template-columns: repeat(6, 14px); gap: 3px; }
+.segs { display: grid; grid-template-columns: repeat(9, 10px); gap: 3px; }
 .segs i { height: 6px; border-radius: 999px; background: var(--line); display: block; }
 .segs i.done { background: var(--ink); } .segs i.now { background: var(--blue); } .segs i.wait { background: var(--orange); }
 
@@ -262,7 +262,7 @@ a.rowi:hover { background: var(--surface); }
   .g2, .g3, .g-main, .checks-grid { grid-template-columns: minmax(0, 1fr); }
   .checks-grid .check:nth-last-child(2) { border-bottom: 1px solid var(--line); }
   .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 18px; }
-  .flow li:nth-child(3)::after { display: none; }
+  .flow li:nth-child(3n)::after { display: none; }
   .stats { grid-template-columns: minmax(0, 1fr); }
   .stat + .stat { border-left: 0; border-top: 1px solid var(--line); }
   .head-actions { width: 100%; }
