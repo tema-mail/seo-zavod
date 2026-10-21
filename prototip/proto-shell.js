@@ -19,7 +19,8 @@
   UI.card = (title, iconName, body, extra) => `<section class="card"><div class="card-h"><h2>${iconName ? UI.icon(iconName, "ic-s") : ""}${title}</h2>${extra || ""}</div>${body}</section>`;
 
   const STATE_TEXT = { done: "готово", now: "завод работает здесь", wait: "нужен человек", future: "впереди" };
-  UI.siteStates = ["done", "done", "done", "now", "done", "done"];
+  UI.siteStates = ["done", "done", "done", "done", "now", "done", "done", "done", "future"];
+  UI.st = (id) => D.stations.find((s) => s.id === id) || D.stations[0]; // станция по id, а не по номеру
   UI.flow = (states) => `<ol class="flow" aria-label="Конвейер сайта">${D.stations.map((s, i) => {
     const st = states[i] || "future";
     const ic = st === "done" ? "check" : s.icon;

@@ -25,7 +25,7 @@
     const f = S.artFilter || "all", only = { wait: "Ждёт «ок»", live: "На сайте" }[f];
     const list = D.articles.filter((a) => !only || a.status === only);
     const fb = (k, t) => `<button type="button" data-af="${k}" aria-pressed="${f === k}">${t}</button>`;
-    return owner("site-articles", siteCrumbs("Статьи"), `${U.head("Пишутся 3 статьи, 2 ждут вашего «ок»", D.stations[3].hint + ".", `<a class="btn primary" href="#site-article">Посмотреть статьи, которые ждут «ок»</a>`)}
+    return owner("site-articles", siteCrumbs("Статьи"), `${U.head("Пишутся 3 статьи, 2 ждут вашего «ок»", U.st("articles").hint + ".", `<a class="btn primary" href="#site-article">Посмотреть статьи, которые ждут «ок»</a>`)}
       <section class="card"><div class="card-h"><h2>${ic("file-text", "ic-s")}Статьи</h2>
         <div class="seg" role="group" aria-label="Показать">${fb("all", "Все")}${fb("wait", "Ждут «ок»")}${fb("live", "На сайте")}</div></div>
         <div class="rows">${list.map((a) => `<a class="rowi" href="#site-article"><span class="ic-wrap">${ic("file-text", "ic-s")}</span>
@@ -65,7 +65,7 @@
   function sitePublish() {
     const queue = `<div class="rows">${D.queue.map((q) => `<div class="rowi"><span class="ic-wrap">${ic("clock", "ic-s")}</span><div class="body"><b>${e(q.title)}</b><span>выйдет: ${q.day}</span></div></div>`).join("")}</div>`;
     const recent = `<div class="rows">${D.recent.map((r) => `<div class="rowi"><span class="ic-wrap">${ic("file-text", "ic-s")}</span><div class="body"><b>${e(r.title)}</b><span>Яндекс ${r.ya} · Google ${r.g}</span></div>${ic("external-link", "ic-s")}</div>`).join("")}</div>`;
-    return owner("site-publish", siteCrumbs("Выкладка и замер"), `${U.head("Завод работает по плану", D.stations[5].hint + ". Последняя выкладка — вчера, данные свежие.",
+    return owner("site-publish", siteCrumbs("Выкладка и замер"), `${U.head("Завод работает по плану", U.st("publish").hint + ". Последняя выкладка — вчера, данные свежие.",
         `<a class="btn primary" href="#site-articles">Посмотреть 2 статьи без «ок»</a><button class="btn" type="button">${ic("refresh-cw", "ic-s")}Проверить сейчас</button>`)}
       ${U.stats([["14 из 16", "страниц уже в поиске"], ["около 1 200", "раз за неделю сайт показали в поиске"], ["3", "статьи вышли на этой неделе"]])}
       <div class="grid g2">${U.card("Очередь на сайт", "clock", queue, `<a class="btn ghost sm" href="#site-about">темп: 3 в неделю</a>`)}${U.card("Недавно на сайте", "send", recent)}

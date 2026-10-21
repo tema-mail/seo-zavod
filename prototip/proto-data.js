@@ -2,12 +2,15 @@
 // Слова — из docs/СЛОВАРЬ.md.
 window.PROTO = {
   stations: [
-    { id: "intro", icon: "scan-search", name: "Знакомство", hint: "Завод изучает ваш бизнес, чтобы писать как ваш сотрудник, а не как робот" },
-    { id: "demand", icon: "search", name: "Спрос", hint: "Что ваши клиенты ищут в Яндексе и Google, когда им нужна ваша услуга" },
-    { id: "plan", icon: "list-checks", name: "План", hint: "Какие страницы завод напишет и в каком порядке — у каждой написано, зачем" },
-    { id: "articles", icon: "pen-line", name: "Статьи", hint: "Завод пишет. Вы читаете и говорите «ок» — или пишете, что поправить" },
-    { id: "check", icon: "shield-check", name: "Проверка", hint: "Факты, польза, повторы — до того, как статья попадёт к вам" },
-    { id: "publish", icon: "send", name: "Выкладка и замер", hint: "Статьи выходят на сайт, а мы смотрим, как их видит поиск" }
+    { id: "intro", icon: "scan-search", name: "Знакомство", hint: "Завод изучает бизнес и собирает факты: цены, гарантии, кейсы – чтобы ничего не выдумывать" },
+    { id: "tech", icon: "wrench", name: "Техника", hint: "Сайт должен быть исправен: без битых страниц, дублей и закрытых разделов – иначе новые страницы не помогут" },
+    { id: "demand", icon: "search", name: "Спрос", hint: "Что клиенты ищут в Яндексе и Google и какую страницу поиск показывает по каждому запросу" },
+    { id: "plan", icon: "map", name: "Карта страниц", hint: "Одна страница на одно намерение: что оставить, улучшить, создать или склеить – у каждой написано, зачем" },
+    { id: "articles", icon: "pen-line", name: "Страницы", hint: "Завод готовит услуги, разделы, карточки и статьи. Вы читаете и говорите «ок» – или пишете, что поправить" },
+    { id: "check", icon: "shield-check", name: "Проверка", hint: "Факты, польза, повторы, переспам и вид страницы – до того, как она попадёт к вам" },
+    { id: "publish", icon: "send", name: "Выкладка", hint: "Страница уходит на сайт, завод проверяет, что она доехала, и зовёт поиск" },
+    { id: "measure", icon: "chart-line", name: "Замер и рост", hint: "Позиции, показы и заявки по каждой странице; слабые возвращаются в карту страниц" },
+    { id: "local", icon: "map-pin", name: "Карты и отзывы", hint: "Яндекс Карты, 2ГИС и отзывы: одинаковые адрес и телефон везде и ответ на каждый отзыв" }
   ],
 
   sites: [
@@ -15,19 +18,19 @@ window.PROTO = {
       domain: "сеоконтентзавод.рф", name: "SEO-завод", verdict: "ok",
       verdictText: "Завод работает по плану",
       line: "Пишутся 3 статьи, 2 ждут «ок»",
-      states: ["done", "done", "done", "now", "done", "done"]
+      states: ["done", "done", "done", "done", "now", "done", "done", "done", "future"]
     },
     {
       domain: "motor-yar.ru", name: "Автосервис «Мотор», Ярославль", verdict: "bad",
       verdictText: "Выпуск остановлен",
       line: "Две статьи подряд с ценами, которых нет в ваших данных — нужно проверить цены",
-      states: ["done", "done", "done", "wait", "future", "future"]
+      states: ["done", "done", "done", "done", "wait", "future", "future", "future", "future"]
     },
     {
       domain: "kvadrat-remont.ru", name: "Ремонт квартир «Квадрат», Казань", verdict: "warn",
       verdictText: "Ждёт ваших ответов",
       line: "Осталось 3 вопроса о бизнесе — без них завод не начнёт",
-      states: ["wait", "future", "future", "future", "future", "future"]
+      states: ["wait", "future", "future", "future", "future", "future", "future", "future", "future"]
     }
   ],
 
