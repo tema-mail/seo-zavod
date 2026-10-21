@@ -8,13 +8,17 @@
       ? `<a class="btn primary" href="#site-articles">Что дальше</a><button class="btn" type="button" id="suggest">${ic("plus", "ic-s")}Предложить тему</button>`
       : `<button class="btn primary" type="button" id="approvePlan">${ic("check", "ic-s")}Всё верно — начинаем</button><button class="btn" type="button" id="suggest">${ic("plus", "ic-s")}Предложить тему</button>`;
     const whenChip = { "Сначала": "ink", "Потом": "", "Позже": "" };
-    return owner("site-plan", siteCrumbs("План"), `${U.head(S.approved ? "План принят — завод пишет" : "Вот первые страницы плана", "У каждой написано, зачем она нужна. Тип и порядок решает завод — вам остаётся согласиться или поправить.", actions)}
+    const mapTable = `<div class="table-wrap"><table><thead><tr><th>Группа запросов</th><th class="n">В месяц</th><th>Страница</th><th>Что делаем</th></tr></thead>
+      <tbody>${D.map.map((m) => `<tr><td><b>${e(m.q)}</b><span class="small muted" style="display:block">${e(m.why)}</span></td><td class="n">${m.n}</td><td>${e(m.type)} · ${e(m.url)}</td><td>${U.chip(m.act, m.act === "Не делать" ? "warn" : m.act === "Склеить" ? "need" : "")}</td></tr>`).join("")}</tbody></table></div>`;
+    return owner("site-plan", siteCrumbs("Карта страниц"), `${U.head(S.approved ? "Карта принята – завод готовит страницы" : "Карта страниц: что делать с каждой", "Одна страница на одно намерение. Для каждой группы запросов завод решил: оставить, улучшить, создать, склеить или не делать – и объяснил почему.", actions)}
+      ${U.card("Запрос → страница", "map", mapTable, `<span class="small muted">первые 4 из 31 группы</span>`)}
+      <section class="card card-b"><p class="why"><b>Почему одну группу «не делать».</b> Отдельная страница нужна, только если у неё своё намерение, есть спрос и есть свои факты. Иначе поиск сочтёт её дорвеем, а сайт получит санкции. Такие запросы закрываем блоком на родительской странице.</p></section>
       <section class="card card-b" id="suggestBox" hidden style="max-width:620px"><div class="field"><label for="sg">О чём написать?</label><input id="sg" placeholder="например: как выбрать SEO-подрядчика"></div>
         <div class="err" id="sgErr"></div><div class="head-actions"><button class="btn primary" type="button" id="sgCheck">${ic("search", "ic-s")}Проверить тему</button></div></section>
       <section class="card" style="border-color:var(--ink)"><div class="card-h"><h2>${ic("git-merge", "ic-s")}Две страницы мешают друг другу</h2>${U.chip("нужно ваше «ок»", "need")}</div>
         <div class="card-b"><p class="why">«Цены» и «Тарифы» отвечают на один вопрос. Оставить «Цены», а «Тарифы» перенаправить на неё?</p>
         <div class="head-actions"><button class="btn primary sm" type="button">Объединить</button><button class="btn ghost sm" type="button">Оставить как есть</button></div></div></section>
-      <section class="card"><div class="card-h"><h2>${ic("list-checks", "ic-s")}Ближайшие темы</h2><span class="small muted">первые 5 из 42 · тем хватит на 38 дней</span></div>
+      <section class="card"><div class="card-h"><h2>${ic("list-checks", "ic-s")}Очередь на подготовку</h2><span class="small muted">первые 5 из 42 · тем хватит на 38 дней</span></div>
         <div class="rows">${D.plan.map((t) => `<div class="rowi"><span class="ic-wrap">${ic(t.type === "Услуга" ? "briefcase" : t.type === "Цена" ? "wallet" : t.type === "Выбор" ? "scale" : "book-open", "ic-s")}</span>
           <div class="body"><b>${e(t.title)}</b><span>${t.type} · ${t.act}. ${e(t.why)}</span></div>
           <div class="end"><span class="chip${whenChip[t.when] ? " ink" : ""}">${t.when}</span></div></div>`).join("")}</div></section>`);
@@ -25,11 +29,11 @@
     const f = S.artFilter || "all", only = { wait: "Ждёт «ок»", live: "На сайте" }[f];
     const list = D.articles.filter((a) => !only || a.status === only);
     const fb = (k, t) => `<button type="button" data-af="${k}" aria-pressed="${f === k}">${t}</button>`;
-    return owner("site-articles", siteCrumbs("Статьи"), `${U.head("Пишутся 3 статьи, 2 ждут вашего «ок»", U.st("articles").hint + ".", `<a class="btn primary" href="#site-article">Посмотреть статьи, которые ждут «ок»</a>`)}
-      <section class="card"><div class="card-h"><h2>${ic("file-text", "ic-s")}Статьи</h2>
+    return owner("site-articles", siteCrumbs("Страницы"), `${U.head("Готовятся 3 страницы, 2 ждут вашего «ок»", U.st("articles").hint + ".", `<a class="btn primary" href="#site-article">Посмотреть страницы, которые ждут «ок»</a>`)}
+      <section class="card"><div class="card-h"><h2>${ic("file-text", "ic-s")}Страницы</h2>
         <div class="seg" role="group" aria-label="Показать">${fb("all", "Все")}${fb("wait", "Ждут «ок»")}${fb("live", "На сайте")}</div></div>
         <div class="rows">${list.map((a) => `<a class="rowi" href="#site-article"><span class="ic-wrap">${ic("file-text", "ic-s")}</span>
-          <div class="body"><b>${e(a.title)}</b><span>${e(a.why)}</span></div><div class="end">${U.chip(a.status, statusDot[a.status] || "")}${ic("chevron-right", "ic-s")}</div></a>`).join("")}</div></section>`);
+          <div class="body"><b>${e(a.title)}</b><span>${e(a.kind)} · ${e(a.why)}</span></div><div class="end">${U.chip(a.status, statusDot[a.status] || "")}${ic("chevron-right", "ic-s")}</div></a>`).join("")}</div></section>`);
   }
 
   function articleView(isClient) {
@@ -41,7 +45,10 @@
       : `<button class="btn primary" type="button" aria-disabled="true">Согласовать</button><span class="small muted">Сначала ответьте на 1 вопрос ниже</span>`;
     const checks = [["Факты", "Проверено 12 фактов: 11 сходятся с вашими данными, 1 ждёт вашего ответа"], ["Польза", "Отвечает на вопрос сразу, воды мало"],
       ["Задание", "Нужные слова на месте, лишних повторов нет"], ["Повторы", "Похожих статей на сайте нет"],
-      ["Ваши правила", "Нарушений нет: места в поиске не обещаем"], ["Готовность к сайту", "Адрес свободен, автор и дата на месте"]];
+      ["Ваши правила", "Нарушений нет: места в поиске не обещаем"], ["Готовность к сайту", "Адрес свободен, автор и дата на месте"],
+      ["Источники", "Каждая цифра ведёт к фразе в вашей базе фактов или на странице-источнике"], ["Переспам", "Ключевые слова встречаются не чаще, чем у сайтов в топе"],
+      ["Не дорвей", "Текст не повторяет соседние страницы с подменой города или услуги"], ["Поля для поиска", "Заголовок, описание, H1 и разметка на месте"],
+      ["Нейроответы", "Ответ в первом абзаце, у каждого блока своя мысль, есть автор и дата"], ["Вид страницы", "Проверена на ноутбуке, планшете и телефоне: ничего не съехало"]];
     const question = ok ? "" : `<section class="card q"><span class="kicker">Нужно ваше слово</span><p class="q-text">${e(A.q)}</p>
       <p class="small muted" style="margin:0">Зачем: люди ищут цену, а выдумывать её завод не будет.</p>
       <div class="offer">${ic("sparkles", "ic-s")}<div><span class="kicker">Завод предлагает</span>${e(A.offer)}</div></div>
@@ -65,12 +72,12 @@
   function sitePublish() {
     const queue = `<div class="rows">${D.queue.map((q) => `<div class="rowi"><span class="ic-wrap">${ic("clock", "ic-s")}</span><div class="body"><b>${e(q.title)}</b><span>выйдет: ${q.day}</span></div></div>`).join("")}</div>`;
     const recent = `<div class="rows">${D.recent.map((r) => `<div class="rowi"><span class="ic-wrap">${ic("file-text", "ic-s")}</span><div class="body"><b>${e(r.title)}</b><span>Яндекс ${r.ya} · Google ${r.g}</span></div>${ic("external-link", "ic-s")}</div>`).join("")}</div>`;
-    return owner("site-publish", siteCrumbs("Выкладка и замер"), `${U.head("Завод работает по плану", U.st("publish").hint + ". Последняя выкладка — вчера, данные свежие.",
+    return owner("site-publish", siteCrumbs("Выкладка"), `${U.head("Выкладка по плану", U.st("publish").hint + ". Последняя выкладка – вчера, всё доехало.",
         `<a class="btn primary" href="#site-articles">Посмотреть 2 статьи без «ок»</a><button class="btn" type="button">${ic("refresh-cw", "ic-s")}Проверить сейчас</button>`)}
-      ${U.stats([["14 из 16", "страниц уже в поиске"], ["около 1 200", "раз за неделю сайт показали в поиске"], ["3", "статьи вышли на этой неделе"]])}
-      <div class="grid g2">${U.card("Очередь на сайт", "clock", queue, `<a class="btn ghost sm" href="#site-about">темп: 3 в неделю</a>`)}${U.card("Недавно на сайте", "send", recent)}
-        ${U.card("Следим за сайтом", "eye", `<div class="card-b"><p class="why">На странице «Цены» пропал заголовок. Так и должно быть?</p><div class="head-actions"><button class="btn sm" type="button">Вернуть как было</button><button class="btn ghost sm" type="button">Так и должно быть</button></div></div>`, U.chip("1 изменение", "warn"))}
-        ${U.card("Вернётся в план", "refresh-cw", `<div class="card-b"><p class="why">«Как продвинуть сайт в Яндексе самому» — на 14 месте. Подтянем: добавим таблицу и обновим примеры.</p></div>`)}</div>`);
+      ${U.stats([["3", "страницы вышли на этой неделе"], ["3 из 3", "доехали: открываются, фото на месте"], ["0", "ошибок выкладки"]])}
+      <div class="grid g2">${U.card("Очередь на сайт", "clock", queue + `<div class="card-b"><p class="small muted" style="margin:0">До выхода любую страницу можно снять из очереди, после выхода – убрать с сайта.</p></div>`, `<a class="btn ghost sm" href="#site-about">темп: 3 в неделю</a>`)}${U.card("Недавно на сайте", "send", recent)}
+        ${U.card("Доехало до сайта", "circle-check", `<div class="card-b"><p class="why">«Как продвинуть сайт в Яндексе самому»: адрес открывается, фото и кнопки на месте, страница в карте сайта. Отправлено в Яндекс и Google на обход.</p></div>`, U.chip("проверено", "ok"))}
+        ${U.card("Замер", "chart-line", `<div class="card-b"><p class="why">Позиции, показы и заявки по каждой странице – на станции «Замер и рост».</p><div class="head-actions"><a class="btn sm" href="#site-measure">Открыть замер</a></div></div>`)}</div>`);
   }
 
   function report(isClient) {

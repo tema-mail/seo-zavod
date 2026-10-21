@@ -67,7 +67,7 @@
       </div>`);
   }
   function adminMoney() {
-    return owner("admin-money", [["Завод", "admin"], ["Расход", ""]], `${U.head("Расход за октябрь — 2 920 ₽", "Сколько стоили модели и сервисы. Лимита нет; если код зациклится, завод остановится сам.")}
+    return owner("admin-money", [["Завод", "admin"], ["Расход", ""]], `${U.head("Расход за октябрь — 2 920 ₽ из 3 000 ₽", "Сколько стоили модели и сервисы. Потолок – 3 000 ₽ в месяц. Каждый платный шаг сначала считает смету: дороже потолка – ждёт вашего «ок». Если код зациклится, завод остановится сам.")}
       <section class="card"><div class="table-wrap"><table><thead><tr><th>Сайт</th><th class="n">За месяц</th><th class="n">Статей</th><th class="n">За статью</th></tr></thead>
       <tbody>${D.spend.map((r) => `<tr><td><b>${e(r.site)}</b></td><td class="n">${r.month}</td><td class="n">${r.articles}</td><td class="n">${r.per}</td></tr>`).join("")}</tbody></table></div></section>`);
   }
@@ -107,9 +107,10 @@
     const P = D.passport;
     return owner("site-intro", siteCrumbs("Знакомство"), `${U.head("Вот что я понял о вашем бизнесе", D.stations[0].hint + ". Осталось 4 вопроса — о том, чего нет на сайте.",
         `<a class="btn primary" href="#site-questions">${ic("message-square", "ic-s")}Ответить на 4 вопроса</a>`)}
-      <div class="grid g3">
-        ${U.card("Что за бизнес", "building-2", `<div class="card-b"><p class="why"><b>${e(P.business)}.</b></p><p class="small muted" style="margin:0">Для кого: ${e(P.who)}. ${e(P.why)}. Изучено 84 страницы сайта.</p><button class="btn ghost sm" type="button">${ic("pencil", "ic-s")}Поправить</button></div>`)}
+      <div class="grid g2">
+        ${U.card("Что за бизнес", "building-2", `<div class="card-b"><p class="why"><b>${e(P.business)}.</b></p><p class="small muted" style="margin:0">Для кого: ${e(P.who)}. ${e(P.why)}. Изучено 84 страницы сайта. Сущности: услуга «продвижение статьями», 3 тарифа, 2 кейса.</p><button class="btn ghost sm" type="button">${ic("pencil", "ic-s")}Поправить</button></div>`)}
         ${U.card("Открыт ли сайт для поиска", "globe", `<div class="rows">${D.health.map((h) => `<div class="check">${ic(h.s === "ok" ? "circle-check" : "circle-alert", "ic-s")}<span>${e(h.t)}</span></div>`).join("")}</div>`, U.chip("31 из 32", "warn"))}
+        ${U.card("База фактов", "book-check", `<div class="rows">${D.facts.map((f) => `<div class="rowi"><div class="body"><b>${e(f.k)}: ${e(f.v)}</b><span>${e(f.src)}</span></div><div class="end">${U.dot(f.s)}</div></div>`).join("")}</div>`, `<span class="small muted">только отсюда завод берёт цифры</span>`)}
         ${U.card("Стоит ли продвигать", "lightbulb", `<div class="card-b"><p class="why"><b>Стоит, но осторожно.</b> Ниша конкурентная: за главные запросы бьются агентства. Начнём с соседних тем и редких вопросов — там конкурентов мало, сдвиги будут за недели.</p></div>`)}
       </div>`);
   }
@@ -134,9 +135,9 @@
       </section></div>`);
   }
   function siteDemand() {
-    return owner("site-demand", siteCrumbs("Спрос"), `${U.head("Что ваши клиенты ищут в поиске", "Нашли 87 тем — их ищут около 14 000 раз в месяц. 23 темы можно поднять быстро: конкурентов мало.",
+    return owner("site-demand", siteCrumbs("Спрос"), `${U.head("Что ваши клиенты ищут в поиске", "Нашли 87 тем — их ищут около 14 000 раз в месяц. Завод собрал их в 31 группу: в одну группу попадают запросы, по которым поиск показывает одни и те же сайты. 23 темы можно поднять быстро: конкурентов мало.",
         `<a class="btn primary" href="#site-plan">Всё верно, перейти к плану</a>`)}
-      <div class="grid g2">${D.layers.map((l) => U.card(l.name, "", `<div class="card-b"><p class="why">${e(l.why)}</p>
+      <div class="grid g2">${D.layers.map((l) => U.card(l.name, "", `<div class="card-b"><p class="why">${e(l.why)}</p><p class="small muted" style="margin:0">Что показывает поиск: ${e(l.serp)}</p>
         <div class="rows">${l.topics.map((t) => `<div class="check tight">${ic("search", "ic-s")}<span>${e(t)}</span></div>`).join("")}</div></div>`, `<span class="small muted">${l.count} тем · ${l.sub}</span>`)).join("")}</div>
       <section class="card card-b"><p class="why">Что-то не так? Напишите, какие темы убрать или добавить, — завод пересоберёт список и объяснит, что изменилось.</p>
         <button class="btn sm" type="button" style="justify-self:start">${ic("pencil", "ic-s")}Поправить темы</button></section>`);
