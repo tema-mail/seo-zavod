@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Завод: отчёт 15.11</title>
+<style>
+:root{--bg:#fafaf8;--fg:#1b1c1e;--mut:#5d6066;--line:#dcdcd6;--box:#fff;--acc:#2456c8;--note:#fff6dc;--ok:#e6f4e2;--stop:#fbe6e3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:30px;line-height:1.2;margin:8px 0 6px}
+h2{font-size:23px;margin:44px 0 12px;padding-top:12px;border-top:2px solid var(--line)}
+h3{font-size:18px;margin:26px 0 8px}
+p,li{max-width:78ch}
+.sub,.meta{color:var(--mut)}
+a{color:var(--acc)}
+code{background:#eeeee9;padding:1px 5px;border-radius:4px;font-size:.92em}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--box)}
+.nav a{font-size:14px;padding:4px 10px;border-radius:20px;background:#ececE6;color:var(--fg);text-decoration:none}
+.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.note{background:var(--note);border-radius:10px;padding:12px 16px;margin:12px 0}
+.ready{background:var(--ok);border-radius:10px;padding:12px 16px;margin:12px 0}
+.stop{background:var(--stop);border-radius:10px;padding:12px 16px;margin:12px 0}
+.t{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#f0f0ea}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.card{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card b{display:block;margin-bottom:4px}
+.card small{color:var(--mut)}
+.arrow{text-align:center;color:var(--mut);font-size:14px;margin:4px 0}
+.chip{display:inline-block;font-size:12.5px;padding:1px 8px;border-radius:12px;background:#ececE6;margin:0 2px}
+audio{width:100%;max-width:520px;margin:6px 0 2px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}h1{font-size:25px}}
+</style>
+<style>.lvl{font-size:12px;padding:0 6px;border-radius:8px;background:#ececE6;white-space:nowrap}.pl{border:1px solid var(--line);border-radius:12px;background:var(--box);padding:14px 16px;margin:14px 0}.pl h3{margin-top:0}.pl dl{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 14px;margin:0}.pl dt{color:var(--mut)}.pl dd{margin:0}@media(max-width:760px){.pl dl{grid-template-columns:1fr}.pl dt{margin-top:8px}}</style>
+<style data-tema-v1>
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] body{background:#141518!important;color:#e4e4e2!important}
+html[data-theme=dark] a{color:#8ab8ff}
+html[data-theme=dark] .w-btn:not(.ghost){background:#e4e4e2!important;color:#141518!important;border-color:#e4e4e2!important}
+html[data-theme=dark] .w-btn.ghost{background:transparent!important;color:#e4e4e2!important;border-color:#e4e4e2!important}
+html[data-theme=dark] :is(.t,.box,.card,details,.kit,.nav,.code button,button,.btn,textarea,input,select){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] button.main,html[data-theme=dark] .nav a,html[data-theme=dark] .step span{background:#e4e4e2!important;color:#141518!important}
+html[data-theme=dark] :is(.chip,.int,code,th){background:#2a2d33!important;color:#e4e4e2!important}
+html[data-theme=dark] :is(.flag,.note){background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] .ready{background:#1f3320!important;color:#d6ecd0!important}
+html[data-theme=dark] .stop{background:#3b2222!important;color:#f3d6d3!important}
+html[data-theme=dark] :is(td,th,details[open] summary){border-color:#33363c!important}
+html[data-theme=dark] :is(.sub,.meta,.top,small,.ex small,details){color:#a9abb0!important}
+html[data-theme=dark] :is(h1,h2,h3,.day,dt,summary){color:#f2f2f0!important}
+/* комплект ч/б прототипа marketolog/prototip (w-*, p-*) – светлые плашки и панели */
+html[data-theme=dark] :is(.w-sticky,.w-header,.w-footer,.w-bar){background:#141518!important}
+html[data-theme=dark] :is(.w-card,.w-cta,.w-success,.w-logic,.w-media,.w-steps li,.w-faq details,.w-form,.w-table th,.p-box,.p-res div,.p-flag,.p-formula,.p-chips label){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] :is(.w-muted,.w-hint,.w-descr,.p-res span,.p-flag span,.w-table td small){color:#a9abb0!important}
+html[data-theme=dark] .w-ask{background:#3b2222!important;color:#f3b4ad!important}
+html[data-theme=dark] .w-note{background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] :is(.w-block,.w-table td,.w-table th){border-color:#3a3c42!important}
+html[data-theme=dark] img{filter:brightness(.92)}
+#tema-btn{position:fixed;right:14px;bottom:14px;z-index:99;width:44px;height:44px;border-radius:50%;border:1px solid #ccc;background:#fff;color:#111;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+html[data-theme=dark] #tema-btn{background:#2a2d33!important;color:#f2f2f0!important;border-color:#44474e!important}
+</style><script>(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
+if(!t){var h=new Date().getHours();t=(h>=19||h<7||(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();</script></head>
+<body>
+<div class="wrap">
+<p class="meta">15.11.2026 · для Артёма · <a href="../tz/">ТЗ</a> · <a href="../ploshchadki/">Площадки</a> · <a href="../interfeys/">Макет окна</a></p>
+<h1>Завод AI сфера: что построено, пока тебя не было</h1>
+<p class="sub">Отчёт для проверки: что работает, что проверить и что нужно от тебя.</p>
+<div class="box"><b>Голосом за минуту</b><br><audio controls preload="none" src="itog.mp3"></audio></div>
+<div class="nav"><a href="#vyvod">Вывод</a><a href="#zhivoe">Вживую на EV</a><a href="#stancii">Станции</a><a href="#bez">Безопасность и деньги</a><a href="#proverit">Как проверить</a><a href="#nuzhno">Нужно от тебя</a><a href="#naydeno">Найдено попутно</a></div>
+
+<h2 id="vyvod">Вывод</h2>
+<div class="ready"><b>Завод собран целиком: все 13 станций, задание словами и утренний дайджест. Он живёт на нашем сервере в Нидерландах и ставится на Мак как приложение. На сайты ничего не выкладывает. Статьи начнёт писать, как только будут токен Claude и твоё «да» на базу фактов.</b></div>
+<ol>
+<li><b>Работает вживую на EV Sibir:</b> сторож, техника, знакомство, спрос и карта страниц уже сняли реальные данные. Статьи, редактор обновлений, советник и площадки готовы и ждут токена Claude.</li>
+<li><b>Ничего не уходит без тебя.</b> Выкладка на сайт закрыта двумя замками, оба выключены. Площадки получают только пакеты на «да». Платные запросы – до 150 ₽ на задачу, ИИ-замер – только по «да».</li>
+<li><b>Код проверен со стороны.</b> Независимый ревизор нашёл 7 важных проблем и 11 мелочей, все исправлены, на каждую есть тест.</li>
+</ol>
+
+<h2 id="zhivoe">Вживую на EV Sibir</h2>
+<div class="t"><table>
+<tr><th>Станция</th><th>Что получилось</th><th>Цена</th></tr>
+<tr><td>9 · Сторож</td><td>20 516 показов и 868 кликов в Google за 28 дней, 466 визитов из поиска, 59 целевых действий, 151 сигнал по страницам. Данные Вебмастера оборваны на 06.10 (сбой Яндекса)</td><td>0 ₽</td></tr>
+<tr><td>2 · Техника</td><td>0 стопов: зеркала и 301, честная 404, 15 страниц из sitemap чистые, битых ссылок нет. Одно внимание – у всех 355 адресов sitemap одна дата lastmod (13.11)</td><td>0 ₽</td></tr>
+<tr><td>1 · Знакомство</td><td>507 кандидатов в базу фактов с 80 денежных страниц: цены с контекстом, гарантии, сроки. Ждут твоего «да» в окне – лишние снимаешь галочками</td><td>0 ₽</td></tr>
+<tr><td>3 · Спрос</td><td>Два прогона по черновому паспорту (6 услуг, 10 китайских марок, Новосибирск). Второй: 1 218 фраз, принято 1 009, 910 групп по выдаче. Мусор «пожарная сигнализация» убран минус-словами</td><td>5,40 + 11,65 ₽</td></tr>
+<tr><td>4 · Карта страниц</td><td>Дописать 88 страниц (главное: /signalizacii – 3 543 запроса в месяц, /rusifikaciya – 2 648, страницы марок), создать 35, не делать 699 мелких групп; каннибализации нет; тем для блога пока 2 – паспорт спроса нужно расширить информационными запросами</td><td>0 ₽</td></tr>
+<tr><td>6 · Проверка</td><td>Текст-ловушка: 4 стопа (цена и гарантия не из фактов, длинное тире, штамп) и 4 внимания</td><td>0 ₽</td></tr>
+<tr><td>Очередь + Claude</td><td>Задача «привет» прошла через очередь в настоящий Claude за 4,2 с</td><td>подписка</td></tr>
+</table></div>
+
+<h2 id="stancii">Станции</h2>
+<div class="t"><table>
+<tr><th>#</th><th>Станция</th><th>Состояние</th></tr>
+<tr><td>1</td><td>Знакомство – база фактов с сайта</td><td>работает, ждёт «да» на факты</td></tr>
+<tr><td>2</td><td>Техника</td><td>работает</td></tr>
+<tr><td>3</td><td>Спрос – XMLRiver, кластеры по выдаче без мостов</td><td>работает</td></tr>
+<tr><td>4</td><td>Карта страниц, каннибализация, очередь тем, советы по коммерческим</td><td>работает</td></tr>
+<tr><td>5</td><td>Статьи: бриф → автор → редактор, формат блога EV</td><td>готово, ждёт токена Claude</td></tr>
+<tr><td>6</td><td>Проверка: красный список слоями, гейт фактов, предпроверка</td><td>работает</td></tr>
+<tr><td>7</td><td>Выкладка</td><td>только пробный режим во временной копии; боевой – два замка, выключены</td></tr>
+<tr><td>8</td><td>Обходчик: IndexNow, переобход, индекс на 3/7/14 день</td><td>работает (проверка индекса каждый день)</td></tr>
+<tr><td>9</td><td>Сторож страниц</td><td>работает, каждый день 07:00</td></tr>
+<tr><td>10</td><td>Редактор обновлений: решения «что и зачем», «до и после» через 28 дней, предложение отката, стоп-кран</td><td>готово, по понедельникам</td></tr>
+<tr><td>11</td><td>Советник: записка недели</td><td>готово, по понедельникам</td></tr>
+<tr><td>12</td><td>Площадки: правила каждой, пакеты на «да», RSS для Дзена</td><td>готово, нужен первый выложенный материал</td></tr>
+<tr><td>13</td><td>ИИ-видимость: Алиса и обзоры Google</td><td>готово, только по «да» со сметой, у EV выключена</td></tr>
+<tr><td>+</td><td>Задание словами – Claude во временной копии, diff на «да»</td><td>готово, ждёт токена</td></tr>
+<tr><td>+</td><td>Утренний дайджест 08:30</td><td>в журнал; в Telegram – когда задашь бота</td></tr>
+</table></div>
+<p class="meta">Код: 33 модуля движка, 7 348 строк, 433 теста, 93 коммита в закрытом репо. Окно: вход, установка как приложение, 12 экранов на живых данных.</p>
+
+<h2 id="bez">Безопасность и деньги</h2>
+<ul>
+<li><b>Сайты:</b> выкладка – только при двух замках (флаг сайта и переменная на сервере), оба выключены. Пробная выкладка идёт во временной копии и ничего не оставляет.</li>
+<li><b>Деньги:</b> XMLRiver – до 150 ₽ на задачу, дороже – решение на «да». Цена списывается до отправки запроса, платная задача после сбоя не повторяется. ИИ-замер – всегда по «да». Спрос EV стоил 5,40 ₽ и 11,65 ₽ – оба прогона без «да», в пределах 150 ₽.</li>
+<li><b>Вход:</b> всё API за паролем, без входа – 401. Перебор логинов не раздувает базу.</li>
+<li><b>Claude:</b> на чужих страницах работает без инструментов. В «задании» – только чтение и правка файлов во временной копии без .git, без Bash, сети и MCP. Ключи завода ему не передаются. Конфиги сборки и скрипты трогать нельзя.</li>
+<li><b>Данные:</b> неснятый источник – «нет данных», не ноль. Копия базы перед миграцией и выкладкой делается штатным бэкапом SQLite.</li>
+</ul>
+
+<h2 id="proverit">Как проверить</h2>
+<ol>
+<li>Открыть завод по адресу из чата (там же – где лежат логин и пароль). В Chrome – «Установить приложение», дальше открывать из Dock.</li>
+<li><b>«Ждёт решения»</b> – кандидаты в факты EV: снять лишнее и сказать «да». После этого статьи смогут писать цены.</li>
+<li><b>«Спрос и карта»</b> и <b>«Советы по коммерческим»</b> – что завод предлагает дописать и создать на EV.</li>
+<li><b>«Страницы»</b> – сторож по каждой странице. <b>«Настройки»</b> – «Доктор»: всё зелёное, кроме токена Claude.</li>
+<li>Кнопка <b>«✎ Правка к экрану»</b> на любом экране – пишешь правки, они копятся, потом «Скопировать все» и вставляешь мне.</li>
+</ol>
+
+<h2 id="nuzhno">Нужно от тебя</h2>
+<ol>
+<li><b>Токен Claude для завода</b> – одна команда, без неё статьи, редактор и советник не пишут:<br><code>ssh claude-vps 'sudo -u zavod env HOME=/opt/zavod /opt/zavod/bin/claude setup-token'</code></li>
+<li><b>«Да» на базу фактов EV</b> в окне (снять лишнее галочками).</li>
+<li><b>Паспорт спроса EV:</b> услуги, марки и минус-слова сейчас черновые. Поправь в окне или напиши мне.</li>
+<li><b>Telegram для дайджеста:</b> какого бота использовать (или завести новый) и в какой чат слать.</li>
+<li><b>Адрес завода</b> (вопрос 18): например zavod.deford.ru вместо технического.</li>
+<li><b>Клише старого завода</b> («уникальная возможность», «широкий спектр»…) – в красный список студии стопом или оставить предупреждением.</li>
+</ol>
+
+<h2 id="naydeno">Найдено попутно (другие проекты, не чинил)</h2>
+<ul>
+<li><b>EV Sibir:</b> у всех 355 адресов sitemap одна дата lastmod (13.11.2026). Google верит lastmod, только пока он честный, иначе перестаёт. Нужна правка в <code>deploy.py</code> EV, это чат EV.</li>
+<li><b>Автостатьи и завод</b> пишут в один блог EV. Пока автостатьи не выключены (твоё решение), карта завода читает их статьи, чтобы не делать близнецов.</li>
+</ul>
+<p class="meta">Отчёт собран 15.11.2026. Все цифры – с живого сервера завода и сайта EV на дату сборки.</p>
+</div>
+<script data-tema-v1>(function(){var b=document.createElement('button');b.id='tema-btn';b.type='button';
+function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.textContent=d?'☀':'☾';b.title=d?'Светлая тема':'Тёмная тема';b.setAttribute('aria-label',b.title)}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};
+upd();document.body.appendChild(b)})();</script></body>
+</html>
