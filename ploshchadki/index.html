@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Площадки: что внедряем</title>
+<style>
+:root{--bg:#fafaf8;--fg:#1b1c1e;--mut:#5d6066;--line:#dcdcd6;--box:#fff;--acc:#2456c8;--note:#fff6dc;--ok:#e6f4e2;--stop:#fbe6e3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:30px;line-height:1.2;margin:8px 0 6px}
+h2{font-size:23px;margin:44px 0 12px;padding-top:12px;border-top:2px solid var(--line)}
+h3{font-size:18px;margin:26px 0 8px}
+p,li{max-width:78ch}
+.sub,.meta{color:var(--mut)}
+a{color:var(--acc)}
+code{background:#eeeee9;padding:1px 5px;border-radius:4px;font-size:.92em}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--box)}
+.nav a{font-size:14px;padding:4px 10px;border-radius:20px;background:#ececE6;color:var(--fg);text-decoration:none}
+.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.note{background:var(--note);border-radius:10px;padding:12px 16px;margin:12px 0}
+.ready{background:var(--ok);border-radius:10px;padding:12px 16px;margin:12px 0}
+.stop{background:var(--stop);border-radius:10px;padding:12px 16px;margin:12px 0}
+.t{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#f0f0ea}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.card{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card b{display:block;margin-bottom:4px}
+.card small{color:var(--mut)}
+.arrow{text-align:center;color:var(--mut);font-size:14px;margin:4px 0}
+.chip{display:inline-block;font-size:12.5px;padding:1px 8px;border-radius:12px;background:#ececE6;margin:0 2px}
+audio{width:100%;max-width:520px;margin:6px 0 2px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}h1{font-size:25px}}
+</style>
+<style>.lvl{font-size:12px;padding:0 6px;border-radius:8px;background:#ececE6;white-space:nowrap}.pl{border:1px solid var(--line);border-radius:12px;background:var(--box);padding:14px 16px;margin:14px 0}.pl h3{margin-top:0}.pl dl{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 14px;margin:0}.pl dt{color:var(--mut)}.pl dd{margin:0}@media(max-width:760px){.pl dl{grid-template-columns:1fr}.pl dt{margin-top:8px}}</style>
+<style data-tema-v1>
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] body{background:#141518!important;color:#e4e4e2!important}
+html[data-theme=dark] a{color:#8ab8ff}
+html[data-theme=dark] .w-btn:not(.ghost){background:#e4e4e2!important;color:#141518!important;border-color:#e4e4e2!important}
+html[data-theme=dark] .w-btn.ghost{background:transparent!important;color:#e4e4e2!important;border-color:#e4e4e2!important}
+html[data-theme=dark] :is(.t,.box,.card,details,.kit,.nav,.code button,button,.btn,textarea,input,select){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] button.main,html[data-theme=dark] .nav a,html[data-theme=dark] .step span{background:#e4e4e2!important;color:#141518!important}
+html[data-theme=dark] :is(.chip,.int,code,th){background:#2a2d33!important;color:#e4e4e2!important}
+html[data-theme=dark] :is(.flag,.note){background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] .ready{background:#1f3320!important;color:#d6ecd0!important}
+html[data-theme=dark] .stop{background:#3b2222!important;color:#f3d6d3!important}
+html[data-theme=dark] :is(td,th,details[open] summary){border-color:#33363c!important}
+html[data-theme=dark] :is(.sub,.meta,.top,small,.ex small,details){color:#a9abb0!important}
+html[data-theme=dark] :is(h1,h2,h3,.day,dt,summary){color:#f2f2f0!important}
+/* комплект ч/б прототипа marketolog/prototip (w-*, p-*) – светлые плашки и панели */
+html[data-theme=dark] :is(.w-sticky,.w-header,.w-footer,.w-bar){background:#141518!important}
+html[data-theme=dark] :is(.w-card,.w-cta,.w-success,.w-logic,.w-media,.w-steps li,.w-faq details,.w-form,.w-table th,.p-box,.p-res div,.p-flag,.p-formula,.p-chips label){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] :is(.w-muted,.w-hint,.w-descr,.p-res span,.p-flag span,.w-table td small){color:#a9abb0!important}
+html[data-theme=dark] .w-ask{background:#3b2222!important;color:#f3b4ad!important}
+html[data-theme=dark] .w-note{background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] :is(.w-block,.w-table td,.w-table th){border-color:#3a3c42!important}
+html[data-theme=dark] img{filter:brightness(.92)}
+#tema-btn{position:fixed;right:14px;bottom:14px;z-index:99;width:44px;height:44px;border-radius:50%;border:1px solid #ccc;background:#fff;color:#111;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+html[data-theme=dark] #tema-btn{background:#2a2d33!important;color:#f2f2f0!important;border-color:#44474e!important}
+</style><script>(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
+if(!t){var h=new Date().getHours();t=(h>=19||h<7||(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();</script></head>
+<body>
+<div class="wrap">
+<p class="meta">15.11.2026 · для Артёма · <a href="../tz/">ТЗ «Завода AI сфера»</a> · <a href="../interfeys/">интерфейс</a></p>
+<h1>Площадки: что знаем, что изучил, что внедряем</h1>
+<p class="sub">ВК, Дзен, Телетайп, Яндекс Бизнес, Google Карты, а за ними drive2, auto.ru, 2ГИС, Telegram и vc.ru. Сверено по курсам базы знаний, знаниям наших агентов, бэкапу старого контент-завода и официальным справкам площадок.</p>
+<div class="box"><b>Голосом за минуту</b><br><audio controls preload="none" src="itog.mp3"></audio></div>
+<div class="nav"><a href="#vyvod">Вывод</a><a href="#izuchil">Что изучил</a><a href="#pl">По площадкам</a><a href="#ii">Нейросети</a><a href="#vnedrit">Что внедряем</a><a href="#posle">Что будет после</a><a href="#reshit">Решить тебе</a><a href="#istochniki">Источники</a></div>
+
+<h2 id="vyvod">Вывод</h2>
+<div class="ready"><b>Правила площадок у нас есть, но они лежали по агентам и не были вшиты в завод. Теперь у каждой площадки в заводе свои правила ссылки, модерации и проверки, и общая плашка «нельзя» больше не нужна.</b></div>
+<ol>
+<li><b>Одной схемы «пост со ссылкой и меткой» не бывает.</b> Яндекс Бизнес запрещает ссылки на сторонние сайты, auto.ru пускает ссылки только на auto.ru, в ВК цель – сообщение в сообщество, а не сайт. Правило ссылки – свойство площадки.</li>
+<li><b>Три площадки режут текст нейросети.</b> auto.ru прямо пишет, что не одобряет тексты нейросетей. Дзен режет «автогенерацию без участия автора». У drive2 отзывы проверяют вручную. Поэтому заводу нужен вход «слова и фото мастера», без него эти модули не пишут.</li>
+<li><b>Для ответов нейросетей важнее карты и чужие площадки, чем свои посты.</b> В нашем срезе 06–07.11 Алиса в Новосибирске отвечала по 2ГИС, Zoon, Авито и сервисам Яндекса. Что публикация на площадке поднимает упоминания, по замерам видно только у одного автора. Клиенту это не обещаем.</li>
+<li><b>Сам завод выкладывает только на сайт и в Дзен через RSS сайта.</b> У ВК право на стену через API выдают «в исключительных случаях», у Яндекс Бизнеса, Телетайпа, auto.ru и drive2 API публикации нет. Для них завод собирает готовый пакет, публикует человек.</li>
+<li><b>Курсы дают конвейеру то, чего в ТЗ не было:</b> стоп-кран выпуска, ответ в первых 10 % страницы, разметка сайта со ссылками на профили площадок, петля «правка → голос бренда», метрики самого завода.</li>
+</ol>
+
+<h2 id="izuchil">Что изучил</h2>
+<div class="t"><table>
+<tr><th>Источник</th><th>Что там</th><th>Чего стоит</th></tr>
+<tr><td>Курсы базы знаний: контент-заводы (папка 05), выжимки SEO/GEO/AEO 2026, «Мясо» (Котенков, GEO и AEO), Маркин, ИИшак, Анарбаева</td><td>Механики конвейера, площадки для ответов нейросетей, карты</td><td>Почти всё – мнения авторов. Замеры есть только у Котенкова. Ни одной официальной нормы российских площадок</td></tr>
+<tr><td>Знания наших агентов: dzen, vk, teletype, ploshchadki, linkbilding, drive2, autoru (снято 05–14.11)</td><td>Справки площадок с датой, наши замеры, правила владельца</td><td>Самое надёжное: официальные справки и наши цифры</td></tr>
+<tr><td>Бэкап старого контент-завода (12.11.2026)</td><td>Код 71 файл, правила клиентов, промпты авторов Дзен, ВК, Карт, знания по Тильде</td><td>Правила и проверки ценные, сам конвейер «тема → публикация» в бою почти не работал; ВК и Карты не публиковались ни разу</td></tr>
+<tr><td>Журнал ошибок главреда и проверка площадок</td><td>Косяки 06–10.11, проверки auto.ru и drive2</td><td>Готовые правила; ВК, Дзена и Телетайпа в проверке не было</td></tr>
+<tr><td>Интернет: справки площадок и исследования 2025–2026</td><td>dev.vk.com, dzen.ru/help, справка Яндекс Бизнеса, Google Business Profile, auto.ru, drive2, 2ГИС, BrightLocal, Ашманов</td><td>84 факта: 56 официальных, 2 подтверждены независимо, 26 из одного источника</td></tr>
+</table></div>
+<p class="meta">Уровни: <span class="lvl">П</span> официально площадка · <span class="lvl">Н</span> 2+ независимых источника с данными · <span class="lvl">1</span> один источник или наш замер · <span class="lvl">✗</span> не подтвердилось · <span class="lvl">В</span> решение владельца.</p>
+
+<h2 id="pl">По площадкам</h2>
+<div class="pl"><h3>ВКонтакте</h3><dl>
+<dt>Роль</dt><dd>Короткое касание и разговор: узнаваемая ситуация → сообщение в сообщество <span class="lvl">В</span></dd>
+<dt>Работает</dt><dd>Свои фото и слова: оригинальных авторов в 2026 показывают в ленте в 3,9 раза чаще, рекомендации работают с первых постов независимо от подписчиков <span class="lvl">П</span>. Суть – до «Показать полностью». Заявки – через vk.me, статус «Онлайн», приветствие <span class="lvl">П</span></dd>
+<dt>Нельзя</dt><dd>Стоковые фото и чужие слова режут рекомендации; хештегов больше 5 – минус <span class="lvl">П</span>. Репосты чужого, автолайки, накрутка, капс, кликбейт <span class="lvl">1</span></dd>
+<dt>Ссылка</dt><dd>Цель – сообщение в сообщество, не сайт. Влияние ссылки в посте на охват официально не раскрыто <span class="lvl">✗</span></dd>
+<dt>Сигналы</dt><dd>Лайки, «не интересно», репосты, комментарии, длительность просмотра, вероятность подписки; веса не названы <span class="lvl">П</span>. За 2025 просмотры клипов +42 %, историй +35 % <span class="lvl">П</span></dd>
+<dt>Выкладка</dt><dd><code>wall.post</code> работает только с ключом пользователя; право «стена» выдают «в исключительных случаях» через поддержку, у ключа сообщества его нет <span class="lvl">П</span>. С 07.09.2026 у API месячные лимиты <span class="lvl">1</span>. Значит, по умолчанию – пакет, в отложку ставит человек; просим право</dd>
+<dt>Мерить</dt><dd>Реакции, комментарии, скрытия, сообщения в сообщество. Статистику сообщества получает админ; охват отдельного поста по API – только сообществам от 5 000 участников <span class="lvl">П</span></dd>
+<dt>У нас</dt><dd>Агент <code>vk</code> (стажёр), правила каруселей владельца. Нет ни одного опубликованного поста и проверки ВК в коде</dd></dl></div>
+
+<div class="pl"><h3>Дзен</h3><dl>
+<dt>Роль</dt><dd>Глубже раскрыть вопрос; аудитория по всей стране (из НСК 2,63 % просмотров канала TEYES) <span class="lvl">1</span></dd>
+<dt>Работает</dt><dd>Заголовок 15–25 знаков, максимум 140, без лишних заглавных, «?» и «!»; первое предложение уходит в карточку; обложка – своя крупная картинка по теме <span class="lvl">П</span></dd>
+<dt>Нельзя</dt><dd>Кликбейт (показ только подписчикам); шаблонные публикации; автогенерация «без участия автора»; «дочитать на сайте»; один текст на нескольких каналах; накрутка – блокировка <span class="lvl">П</span></dd>
+<dt>Ссылка</dt><dd>Можно, если реклама не единственная ценность статьи <span class="lvl">П</span></dd>
+<dt>Выкладка</dt><dd>API публикации нет <span class="lvl">П</span>. RSS с сайта: у канала от 10 подписчиков, домен не кириллический, права через метатег, от 10 материалов в ленте и 3 публикаций на сайте в месяц, обложка от 700 px, адрес без UTM, правка через RSS – 7 дней, короче 800 знаков без картинок – пост, есть режим черновика <span class="lvl">П</span>. Это единственная площадка, куда завод выкладывает сам. Или бот из Telegram-канала один к одному</dd>
+<dt>Мерить</dt><dd>Показы → открытия → дочитывания → переходы → заявки. Официального API статистики нет, есть кнопка «Отчёт». Реклама примешивается: у TEYES 89 из 122 «заявок с Дзена» – реклама <span class="lvl">1</span></dd>
+<dt>Нейросети</dt><dd>Дзен среди источников Алисы в 9 из 33 запросов TEYES без нас <span class="lvl">1</span></dd>
+<dt>У нас</dt><dd>Агент <code>dzen</code>, сборщик и дашборд студии. Не решены частота и длина (см. «Решить тебе»)</dd></dl></div>
+
+<div class="pl"><h3>Телетайп</h3><dl>
+<dt>Роль</dt><dd>Открытая библиотека: руководство, на которое ведут из постов и переписки продавца <span class="lvl">В</span></dd>
+<dt>Работает</dt><dd>Структурный лонгрид: проблема, таблица или схема, примеры, вывод и дата <span class="lvl">1</span></dd>
+<dt>Нельзя</dt><dd>Спам и прямая реклама: удаляют без уведомления <span class="lvl">П</span></dd>
+<dt>Ссылка</dt><dd>На сайт со скрытой меткой; внешние ссылки в статьях без nofollow <span class="lvl">1</span></dd>
+<dt>Выкладка</dt><dd>API публикации нет – полуручной путь. После выхода: открывается, нет noindex (он включается у каждой статьи отдельно) <span class="lvl">1</span></dd>
+<dt>Риск</dt><dd>21.08.2026 домен не открывался, сервис уходил на зеркало <span class="lvl">1</span> – всё важное держим на сайте</dd></dl></div>
+
+<div class="pl"><h3>Яндекс Карты (Яндекс Бизнес)</h3><dl>
+<dt>Роль</dt><dd>База запуска: сайт, карты и сразу Яндекс Бизнес <span class="lvl">В</span></dd>
+<dt>Работает</dt><dd>Публикации до 3000 знаков и 4 фото <span class="lvl">П</span>; название, адрес, телефон, часы буква в букву везде <span class="lvl">1</span></dd>
+<dt>Нельзя</dt><dd><b>Чужие и сокращённые ссылки</b>, капс, разрядка, транслит, фото «до/после», контакты на фото <span class="lvl">П</span>. За отзыв нельзя платить, давать скидку и подсказывать содержание <span class="lvl">П</span></dd>
+<dt>Отзывы</dt><dd>Один ответ на отзыв, до 2500 знаков, модерация около 3 дней; рейтинг – не среднее: вес и надёжность автора, появляется после 3–5 оценок <span class="lvl">П</span>. Черновики ответов – работа модуля</dd>
+<dt>Модерация</dt><dd>До 7 дней; правка снова отправляет на модерацию <span class="lvl">П</span></dd>
+<dt>Сигналы</dt><dd>Публикации <b>не влияют на позицию</b>, только на вид карточки; рейтинг считается по оценкам с весом пользователя <span class="lvl">П</span></dd>
+<dt>Выкладка</dt><dd>Публичного API публикаций, отзывов и статистики нет, есть только фид для сетей и выгрузка статистики в Excel <span class="lvl">П</span> – пакет в кабинет владельца</dd>
+<dt>Нейросети</dt><dd>Ответы Алисы о компании строятся из Яндекс Бизнеса <span class="lvl">П</span>; в НСК – рубрика, рейтинг, отзывы <span class="lvl">1</span></dd></dl></div>
+
+<div class="pl"><h3>Google Карты (Business Profile)</h3><dl>
+<dt>Роль</dt><dd>В РФ – только существующие карточки, новые почти не проходят проверку с 09.2024 <span class="lvl">1</span>; в Минске работает</dd>
+<dt>Работает</dt><dd>Публикации типов «новость», «предложение», «событие»; у предложения обязательны название и даты <span class="lvl">П</span></dd>
+<dt>Нельзя</dt><dd>Телефон в тексте публикации – повод отклонить <span class="lvl">П</span>; ключевые слова в названии, дубли карточек <span class="lvl">1</span></dd>
+<dt>Выкладка</dt><dd>Business Profile API: публикации и ответы на отзывы; доступ только профилю, подтверждённому 60+ дней и с сайтом <span class="lvl">П</span>. Подтверждение из России нестабильно <span class="lvl">1</span></dd>
+<dt>Нейросети</dt><dd>В локальных ответах ИИ Google карточка компании – главный источник ссылок: в автосервисах 53,9 % (BrightLocal, 26.08.2026) <span class="lvl">1</span>; «сайт + карточка – основа ссылок ИИ» подтверждают двое независимых <span class="lvl">Н</span></dd></dl></div>
+
+<div class="pl"><h3>Следующие: drive2, auto.ru, 2ГИС, Telegram, vc.ru</h3><dl>
+<dt>drive2</dt><dd>Для авто №1: отзыв реального клиента в его бортжурнале с отметкой компании. Один аккаунт на человека, аккаунты «за клиентов», призывы подписаться и ссылки на соцсети запрещены <span class="lvl">П</span>. Ссылки в постах nofollow. Нейросетевым ботам сайт закрыт, для Алисы и Google открыт <span class="lvl">П</span></dd>
+<dt>auto.ru</dt><dd>Бортжурнал как бесплатный автоблог бизнеса. <b>Текст от нейросетей запрещён</b>, ссылки только на auto.ru, без «звоните» <span class="lvl">П</span>. Завод готовит только каркас из фактов и фото мастера, текст пишет человек. В авто auto.ru – домен №1 по цитированию нейросетями, 18,7 % <span class="lvl">1</span></dd>
+<dt>2ГИС</dt><dd>Для Сибири «массив, рекламу запускать точно» <span class="lvl">В</span>. Во всех 6 ответах Алисы по услугам TEYES <span class="lvl">1</span>. Отзывы по просьбе компании не удаляют, но можно запросить у автора подтверждение визита <span class="lvl">П</span>; API отзывов не нашли</dd>
+<dt>Telegram</dt><dd>Реклама на заблокированных ресурсах запрещена законом с 01.09.2025, ФАС не штрафует до конца 2026 <span class="lvl">П</span>. Органики почти нет. Агента нет</dd>
+<dt>vc.ru</dt><dd>Только деловой кейс; посты, продвигающие услуги, банят <span class="lvl">1</span>. Для ответов нейросетей на русском – один из главных источников <span class="lvl">1</span></dd></dl></div>
+
+
+<h2 id="ii">Нейросети поперёк площадок</h2>
+<ul>
+<li><b>Алиса AI опирается на страницы из топа поиска</b> <span class="lvl">П</span>; доля сайтов вне топ-10 в её ответах упала с 40 до 10 % (Ашманов, 10.06.2026) <span class="lvl">1</span>. Мерить – «Видимость сайта в Алисе AI» в Вебмастере, раз в неделю <span class="lvl">П</span>.</li>
+<li><b>Порядок вложений для поиска и ответов нейросетей:</b> карточки Яндекс Бизнеса и 2ГИС → сайт в топе → соцсети как поддержка.</li>
+<li><b>Позиция в обычной выдаче – главный фактор</b>, по которому нейросеть берёт источник: с учётом подзапросов доля первого места 4 % → 15 %, топ-10 33 % → 57 % (449 запросов, Котенков) <span class="lvl">1</span>.</li>
+<li><b>Ответ в начале:</b> в 76 % наблюдений лучший кусок для ответа стоит в первых 10 % страницы <span class="lvl">1</span>. В заводе это требование брифа: H1 → ответ 2–5 предложений → для кого → таблица → шаги → доказательства → FAQ.</li>
+<li><b>Локальные ответы</b> строятся из карточек карт и отзовиков: у Алисы в НСК – 2ГИС, Zoon, Авито, сервисы Яндекса (наш срез, 71 ответ, 2,63 ₽) <span class="lvl">1</span>; по Вебмастеру TEYES на запросах без нас Алиса брала drive2 в 14 из 33 и Дзен в 9 <span class="lvl">1</span>.</li>
+<li><b>Google официально:</b> обычное SEO в силе, llms.txt поиск не использует, отдельный стиль «для ИИ» не нужен, разметка – только под видимое на странице <span class="lvl">П</span>.</li>
+<li><b>Мерим четыре разных итога и не складываем:</b> нашла система, упомянула, процитировала со ссылкой, порекомендовала. Каждая нейросеть отдельно, запросы без бренда, раз в месяц по твоему «да».</li>
+</ul>
+
+<h2 id="vnedrit">Что внедряем</h2>
+<div class="t"><table>
+<tr><th>#</th><th>Что</th><th>Куда</th><th>Статус</th></tr>
+<tr><td>1</td><td>Правило ссылки, модерация и формат – у каждой площадки свои</td><td>станция 12, модули площадок</td><td>в ТЗ (черновик 8)</td></tr>
+<tr><td>2</td><td>Статусы «на модерации / отклонена / нужен факт / просрочена»</td><td>станция 12</td><td>в ТЗ</td></tr>
+<tr><td>3</td><td>Вход «слова и фото мастера»; без него auto.ru, drive2 и карты не пишутся</td><td>станции 1, 12</td><td>в ТЗ</td></tr>
+<tr><td>4</td><td>Правила площадок как слой красного списка, проверка кодом до «да»</td><td>станция 6</td><td>пишется (агент-разработчик)</td></tr>
+<tr><td>5</td><td>Гейт фактов: цена и гарантия в тексте только из базы фактов (из старого завода)</td><td>станция 6</td><td>пишется</td></tr>
+<tr><td>6</td><td>Стоп-кран выпуска и метрики самого завода</td><td>станции 6, 9</td><td>в ТЗ</td></tr>
+<tr><td>7</td><td>Разметка сайта со ссылками на профили площадок (sameAs)</td><td>станция 5, бриф</td><td>в ТЗ</td></tr>
+<tr><td>8</td><td>Ответ в первых 10 % страницы – поле брифа и гейт</td><td>станции 5, 6</td><td>в ТЗ</td></tr>
+<tr><td>9</td><td>Сигнал «конкурент в ИИ-ответе» для редактора обновлений</td><td>станции 10, 13</td><td>в ТЗ</td></tr>
+<tr><td>10</td><td>Цифры площадок без рекламы и роботов</td><td>станция 12</td><td>в ТЗ</td></tr>
+<tr><td>11</td><td>Проверка ВК, Дзена, Телетайпа в проверке площадок главреда (сейчас только auto.ru и drive2)</td><td>знания агентов</td><td>следом</td></tr>
+</table></div>
+
+<h2 id="posle">Что будет после внедрения</h2>
+<div class="cols">
+<div class="card"><b>Меньше снятых и отклонённых</b><small>каждый текст до «да» проходит правила своей площадки кодом: ссылка, формат, запреты, следы нейросети</small></div>
+<div class="card"><b>Площадки работают на сайт</b><small>разметка связывает профили с сайтом, у каждой публикации своя цель: сообщение, переход, звонок</small></div>
+<div class="card"><b>Видно, что даёт каждая площадка</b><small>цифры без рекламы и роботов, статусы модерации, замер упоминаний в Алисе и обзорах Google раз в месяц</small></div>
+</div>
+<p>Чего не будет: обещаний клиенту «разместимся – и нейросети начнут нас называть». Это замер, а не гарантия.</p>
+
+<h2 id="reshit">Решить тебе</h2>
+<ol>
+<li><b>Частота Дзена:</b> рекомендация ВК – 2–3 статьи в неделю; документ старого завода – каждый день. Предлагаю 2–3 в неделю и свой замер через месяц.</li>
+<li><b>Длина на Дзене:</b> твои слова расходятся («короткий текст, чтобы дочитывали» и «500 слов – мелко»). Предлагаю тест: 2 короткие против 2 длинных по одной теме.</li>
+<li><b>Google-карточки в РФ:</b> переименовать старые – Маркин относит к серым методам, риск снятия не проверен. Предлагаю только там, где карточка наша и бизнес живой.</li>
+<li><b>Ссылка на свой сайт в Яндекс Бизнесе:</b> справка запрещает «сторонние сайты» и не уточняет про свой. Проверим одной публикацией.</li>
+</ol>
+
+<h2 id="istochniki">Источники</h2>
+<p class="meta">Свод по базе знаний и агентам – 283 строки, 24 противоречия; опись старого завода – 660 строк (оба файла у нас, не публикуются: в бэкапе данные клиентов). Справки площадок: dev.vk.com (wall.post, stats, права доступа), dzen.ru/help (card-preview, spam, copypaste, rss-modify, cross-platform), yandex.ru/support/business-priority (publications, reviews/rating), support.google.com/business/answer/7342169, yandex.ru/support/autoru (logbook), drive2.ru/rules, vk.company.ru/ru/press/releases/12365 и 12318, ads.vk.ru, teletype.in/about, journal.teletype.in/legal; developers.google.com/search/docs/fundamentals/ai-optimization-guide. Наши замеры: срез ИИ XMLRiver 06–07.11.2026, Вебмастер TEYES «Видимость в Алисе» до 27.09.2026, сборщик Дзена TEYES.</p>
+</div>
+<script data-tema-v1>(function(){var b=document.createElement('button');b.id='tema-btn';b.type='button';
+function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.textContent=d?'☀':'☾';b.title=d?'Светлая тема':'Тёмная тема';b.setAttribute('aria-label',b.title)}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};
+upd();document.body.appendChild(b)})();</script></body>
+</html>
