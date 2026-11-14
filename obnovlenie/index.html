@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Обходчик и обновление страниц</title>
+<style>
+:root{--bg:#fafaf8;--fg:#1b1c1e;--mut:#5d6066;--line:#dcdcd6;--box:#fff;--acc:#2456c8;--note:#fff6dc;--ok:#e6f4e2;--stop:#fbe6e3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:30px;line-height:1.2;margin:8px 0 6px}
+h2{font-size:23px;margin:44px 0 12px;padding-top:12px;border-top:2px solid var(--line)}
+h3{font-size:18px;margin:26px 0 8px}
+p,li{max-width:78ch}
+.sub,.meta{color:var(--mut)}
+a{color:var(--acc)}
+code{background:#eeeee9;padding:1px 5px;border-radius:4px;font-size:.92em}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--box)}
+.nav a{font-size:14px;padding:4px 10px;border-radius:20px;background:#ececE6;color:var(--fg);text-decoration:none}
+.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.note{background:var(--note);border-radius:10px;padding:12px 16px;margin:12px 0}
+.ready{background:var(--ok);border-radius:10px;padding:12px 16px;margin:12px 0}
+.stop{background:var(--stop);border-radius:10px;padding:12px 16px;margin:12px 0}
+.t{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#f0f0ea}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.card{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card b{display:block;margin-bottom:4px}
+.card small{color:var(--mut)}
+.arrow{text-align:center;color:var(--mut);font-size:14px;margin:4px 0}
+.chip{display:inline-block;font-size:12.5px;padding:1px 8px;border-radius:12px;background:#ececE6;margin:0 2px}
+audio{width:100%;max-width:520px;margin:6px 0 2px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}h1{font-size:25px}}
+</style>
+<style data-tema-v1>
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] body{background:#141518!important;color:#e4e4e2!important}
+html[data-theme=dark] a{color:#8ab8ff}
+html[data-theme=dark] .w-btn:not(.ghost){background:#e4e4e2!important;color:#141518!important;border-color:#e4e4e2!important}
+html[data-theme=dark] .w-btn.ghost{background:transparent!important;color:#e4e4e2!important;border-color:#e4e4e2!important}
+html[data-theme=dark] :is(.t,.box,.card,details,.kit,.nav,.code button,button,.btn,textarea,input,select){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] button.main,html[data-theme=dark] .nav a,html[data-theme=dark] .step span{background:#e4e4e2!important;color:#141518!important}
+html[data-theme=dark] :is(.chip,.int,code,th){background:#2a2d33!important;color:#e4e4e2!important}
+html[data-theme=dark] :is(.flag,.note){background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] .ready{background:#1f3320!important;color:#d6ecd0!important}
+html[data-theme=dark] .stop{background:#3b2222!important;color:#f3d6d3!important}
+html[data-theme=dark] :is(td,th,details[open] summary){border-color:#33363c!important}
+html[data-theme=dark] :is(.sub,.meta,.top,small,.ex small,details){color:#a9abb0!important}
+html[data-theme=dark] :is(h1,h2,h3,.day,dt,summary){color:#f2f2f0!important}
+/* комплект ч/б прототипа marketolog/prototip (w-*, p-*) – светлые плашки и панели */
+html[data-theme=dark] :is(.w-sticky,.w-header,.w-footer,.w-bar){background:#141518!important}
+html[data-theme=dark] :is(.w-card,.w-cta,.w-success,.w-logic,.w-media,.w-steps li,.w-faq details,.w-form,.w-table th,.p-box,.p-res div,.p-flag,.p-formula,.p-chips label){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] :is(.w-muted,.w-hint,.w-descr,.p-res span,.p-flag span,.w-table td small){color:#a9abb0!important}
+html[data-theme=dark] .w-ask{background:#3b2222!important;color:#f3b4ad!important}
+html[data-theme=dark] .w-note{background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] :is(.w-block,.w-table td,.w-table th){border-color:#3a3c42!important}
+html[data-theme=dark] img{filter:brightness(.92)}
+#tema-btn{position:fixed;right:14px;bottom:14px;z-index:99;width:44px;height:44px;border-radius:50%;border:1px solid #ccc;background:#fff;color:#111;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+html[data-theme=dark] #tema-btn{background:#2a2d33!important;color:#f2f2f0!important;border-color:#44474e!important}
+</style><script>(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
+if(!t){var h=new Date().getHours();t=(h>=19||h<7||(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();</script></head>
+<body>
+<div class="wrap">
+<p class="meta">14.11.2026 · для Артёма · к ТЗ «SEO-завод», черновик 4 · <a href="../tz/">ТЗ целиком</a></p>
+<h1>Обходчик, сторож, редактор обновлений и красный список</h1>
+<p class="sub">Как Google и Яндекс узнают о новых и обновлённых страницах, зачем и когда обновлять статьи и как это встаёт в завод.</p>
+
+<div class="box"><b>Голосом за минуту</b><br><audio controls preload="none" src="itog.mp3"></audio></div>
+
+<div class="nav"><a href="#vyvod">Вывод</a><a href="#kak">Как поисковики узнают</a><a href="#zachem">Зачем и когда обновлять</a><a href="#delat">Как делать</a><a href="#u-nas">Что у нас и как встраиваем</a><a href="#krasnyy">Красный список</a><a href="#istochniki">Источники</a></div>
+
+<h2 id="vyvod">Вывод</h2>
+<div class="ready"><b>Когда прийти и что держать в индексе, поисковик решает сам. Мы можем три вещи: быстро сказать «тут новое» (обходчик), каждый день смотреть, что происходит с каждой страницей (сторож), и по цифрам решать, что дописать (редактор обновлений). Обновлять по сигналам, а не по календарю, и не ради свежей даты.</b></div>
+<ol>
+<li><b>Подсказка ускоряет обход, но не даёт индекс и позиции.</b> Яндекс берёт IndexNow и переобход из Вебмастера, Google берёт только sitemap с честной датой и ручную кнопку. Повторная отправка ничего не ускоряет.</li>
+<li><b>Обновление работает, когда страница стала полезнее.</b> Google прямо пишет: смена даты без существенной правки – признак текста ради поисковика. У Яндекса нет спроса и пользы – страница уходит в «малоценные».</li>
+<li><b>Решение «что дописать» – из цифр страницы.</b> Индекс, позиция, показы, CTR, запросы, заявки. По ним 9 сигналов, у каждого свой типовой ответ.</li>
+<li><b>У нас есть только кусок обходчика.</b> Автобалл и EV Sibir шлют IndexNow при выкладке. Сторожа по каждой странице и редактора обновлений нет ни в одном проекте. В заводе это станции 8, 9 и 10, плюс красный список.</li>
+</ol>
+
+<h2 id="kak">1. Как поисковики узнают о странице</h2>
+<p>Робот ходит по сайту сам, по своему графику. Мы можем только подсказать, где новое. Подсказка – это не индекс: дальше поисковик решает, нужна ли страница людям.</p>
+<div class="t"><table>
+<tr><th></th><th>Яндекс</th><th>Google</th></tr>
+<tr><td>Мгновенно сообщить</td><td><b>IndexNow</b> – одним запросом до 10 000 адресов; можно и удалённые (404, 410)</td><td>IndexNow <b>не поддерживает</b>. Пинг sitemap отключён (объявлено 26.06.2023)</td></tr>
+<tr><td>Попросить обойти конкретный адрес</td><td><b>Переобход страниц</b> в Вебмастере и по API, суточная квота на сайт (у Автобалла 09.11 – 10 адресов в день)</td><td>«Запросить индексирование» в Search Console – только руками, квота не опубликована. Indexing API – <b>только для вакансий и трансляций</b>, для статей нельзя</td></tr>
+<tr><td>Карта сайта</td><td>Обрабатывает в течение 2 недель; можно отправить на переобход (месячный лимит)</td><td>Главный способ. lastmod учитывает, только если дата «стабильно и проверяемо точная». changefreq и priority игнорирует</td></tr>
+<tr><td>Что ещё</td><td>Обход по счётчику Метрики</td><td>URL Inspection API – только посмотреть статус, 2000 проверок в день на сайт</td></tr>
+<tr><td>Сроки</td><td>Индексирование – от 3 до 7 дней</td><td>От нескольких дней до нескольких недель</td></tr>
+<tr><td>Если не взял</td><td>Статус «малоценная или маловостребованная»: дубль, нет видимого контента или нет запросов, на которые страница отвечает</td><td>«Просканирована, но не проиндексирована»</td></tr>
+</table></div>
+<div class="note">Что считается существенной правкой для даты (Google): основной текст, структурированные данные, ссылки. Год в подвале – нет.</div>
+
+<h2 id="zachem">2. Зачем и когда обновлять</h2>
+<h3>Что говорят сами поисковики</h3>
+<ul>
+<li><b>Google, свежесть.</b> Есть системы «запрос требует свежести»: по новинкам и событиям свежее поднимается выше. По вечным темам свежесть сама по себе не решает.</li>
+<li><b>Google, дата.</b> В списке признаков текста ради поисковика: «меняете дату, чтобы страница казалась свежей, хотя содержание существенно не поменялось?» И отдельно: массово добавлять или удалять тексты, чтобы сайт казался свежим, – «нет, не поможет».</li>
+<li><b>Яндекс.</b> Частоту обновления не задаёт. Страница без спроса или дубль исключается как малоценная. Что делать: ненужную закрыть, нужную улучшить под реальные запросы.</li>
+</ul>
+<h3>Что говорят агентства и исследования</h3>
+<ul>
+<li>Единой частоты нет, везде «по сигналам»: падение трафика, устаревшие факты, позиции рядом с топом.</li>
+<li>NP Digital, аудит 4 287 сайтов: 18 % контента теряет актуальность за 2 года. Совет – пересматривать всё старше двух лет. <span class="chip">вторичный пересказ</span></li>
+<li>HubSpot: обновление старых статей дало в среднем +106 % поиска к этим статьям. <span class="chip">данные самого HubSpot</span></li>
+<li>Orbit Media: доля блогеров, обновляющих старое, выросла с 53 % (2017) до 74 % (2023).</li>
+<li>Российская практика (Callibri, vc.ru, Хабр): обновление – это новые данные, раздел под пропущенный вопрос, свежие примеры, перелинковка. Малоценные страницы – склеить или удалить, если улучшить нечем.</li>
+</ul>
+<div class="stop"><b>Чего не делать:</b> менять дату без правки; переписывать страницу моложе месяца – поисковик ещё не решил; трогать страницу в топ-3, которая растёт; слать один адрес на переобход по кругу.</div>
+
+<h2 id="delat">3. Как делать: три роли в заводе</h2>
+<div class="cols">
+<div class="card"><b>8. Обходчик</b><small>сразу после выкладки</small><ul><li>IndexNow: Яндекс и Bing, новые, изменённые, удалённые</li><li>Переобход Вебмастера – новые и денежные, в пределах квоты</li><li>sitemap: честный lastmod</li><li>Google: sitemap + кнопка «открыть в Search Console»</li><li>3, 7, 14 день: в индексе ли; нет – причина</li></ul></div>
+<div class="card"><b>9. Сторож страниц</b><small>каждый день</small><ul><li>индекс Я и G, исключения</li><li>показы, клики, CTR, позиция</li><li>запросы из Вебмастера и Search Console</li><li>визиты, отказы, заявки со страницы (Метрика)</li><li>28 дней против прошлых 28 → сигналы</li></ul></div>
+<div class="card"><b>10. Редактор обновлений</b><small>раз в неделю, с твоим «да»</small><ul><li>берёт сигналы</li><li>решает одно действие с причиной</li><li>правка идёт через гейты и обходчик</li><li>через 28 дней «до и после»</li><li>хуже – откат версии</li></ul></div>
+</div>
+<div class="t"><table>
+<tr><th>Сигнал</th><th>Когда</th><th>Типовое решение</th></tr>
+<tr><td>Не в индексе</td><td>14 дней</td><td>Техника → чинить; дубль → склеить; малоценная → дописать или закрыть</td></tr>
+<tr><td>Близко к топу</td><td>Позиция 4–20, показы есть</td><td>Раздел или FAQ под запросы из Вебмастера, ссылки с сильных страниц</td></tr>
+<tr><td>Мало кликов</td><td>CTR вдвое ниже среднего для позиции</td><td>Переписать title и description</td></tr>
+<tr><td>Падение</td><td>Клики −20 % за 28 дней без сезона</td><td>Кто обогнал, чего у нас нет → обновить</td></tr>
+<tr><td>Запросы мимо текста</td><td>Показы по запросам, которых нет в тексте</td><td>Дописать или отдать запрос другой странице</td></tr>
+<tr><td>Трафик без заявок</td><td>Визиты есть, целей 0 за 28 дней</td><td>Призыв, ссылка на денежную, проверка формы</td></tr>
+<tr><td>Каннибализация</td><td>Два адреса на один запрос</td><td>Склеить с 301 или развести</td></tr>
+<tr><td>Мёртвая</td><td>6 месяцев без показов</td><td>Склеить, закрыть или удалить с 301</td></tr>
+<tr><td>Факты устарели</td><td>Сменилась база фактов или прошло 6 месяцев</td><td>Обновить цены, годы, модели</td></tr>
+</table></div>
+<p class="meta">Пороги – допущение, калибруем на пилоте.</p>
+
+<h2 id="u-nas">4. Что у нас сейчас и как встраиваем</h2>
+<div class="t"><table>
+<tr><th>Где</th><th>Обходчик</th><th>Сторож по страницам</th><th>Редактор обновлений</th></tr>
+<tr><td>Автобалл</td><td>Есть: IndexNow новых адресов при выкладке (09.11); переобход Вебмастера упёрся в 10 адресов в день, запись по API отвечала 504</td><td>Нет</td><td>Нет</td></tr>
+<tr><td>EV Sibir</td><td>Есть: IndexNow изменённых и удалённых при выкладке</td><td>Нет</td><td>Нет</td></tr>
+<tr><td>Остальные проекты</td><td>Нет</td><td>Нет</td><td>Нет</td></tr>
+<tr><td>SEO-завод (ТЗ, черновик 4)</td><td>Станция 8, этап 2</td><td>Станция 9, этап 3</td><td>Станция 10, этап 5</td></tr>
+</table></div>
+<p>В ТЗ добавлено: 3 станции, таблица сигналов, правило «когда не трогать», красный список, 5 новых сущностей в данных, шаги в расписании, критерии выхода и приёмки, 2 риска, вопросы 13 и 14. Часы до продажи: было ~290–390, стало <b>~310–420</b>.</p>
+<p>Для живых проектов (без завода) можно поставить сторожа и обходчика отдельно, через seo-lead. Это отдельная задача, без твоего «да» не начинаю.</p>
+
+<h2 id="krasnyy">5. Красный список</h2>
+<p>Экран в приложении. Два слоя: <b>базовый студии</b> (идёт в каждый сайт) и <b>список сайта</b> (вопросы владельцу на «Знакомстве», дальше дополняется). У строки – причина, кто добавил, дата, пример.</p>
+<div class="t"><table>
+<tr><th>Часть</th><th>Примеры</th><th>Где ловим</th></tr>
+<tr><td>Нельзя писать: слова</td><td>Длинное тире, иероглифы, ИИ-штампы, «лучший» и «№1» без доказательства, нелюбимые слова владельца</td><td>Гейт-код</td></tr>
+<tr><td>Нельзя писать: смысл</td><td>Цены не из базы фактов; выдуманные отзывы и цифры; обещания результата; конкуренты по имени; ограничения работ как текст сайта; разные марки в одной статье</td><td>Бриф автору заранее + приёмщик с цитатой</td></tr>
+<tr><td>Нельзя показывать</td><td>Госномера; чужие фото без прав; лица без согласия</td><td>Гейт картинок + приёмщик</td></tr>
+<tr><td>Нельзя делать</td><td>Дата без правки; переобход чаще раза в 7 дней; Indexing API Google для статей; смена адреса без 301; правка страницы моложе 28 дней или с заявками без «да»; дорвеи под города; выкладка мимо гейтов</td><td>Запрет в коде станций 7, 8, 10</td></tr>
+</table></div>
+<p>Каждый новый косяк – строка в красном списке и тест-ловушка. Список целиком уходит в бриф автору, чтобы ошибку не делали, а не только ловили.</p>
+
+<h2>Что раскрыть</h2>
+<ul><li>Пороги сигналов – обсудить цифры до пилота</li><li>Красный список студии – собрать из памяти и журналов косяков (вопрос 14)</li><li>Поставить сторожа на живые проекты до завода (Автобалл, EV Sibir, TEYES)</li></ul>
+
+<h2 id="istochniki">Источники (проверено 14.11.2026)</h2>
+<ul class="meta">
+<li><a href="https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl">Google: Ask Google to recrawl your URLs</a></li>
+<li><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap">Google: Build and submit a sitemap (lastmod)</a></li>
+<li><a href="https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping">Google: Sitemaps ping endpoint is going away (26.06.2023)</a></li>
+<li><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content">Google: Creating helpful, reliable, people-first content</a></li>
+<li><a href="https://developers.google.com/search/docs/appearance/ranking-systems-guide">Google: ranking systems guide (freshness)</a></li>
+<li><a href="https://developers.google.com/search/apis/indexing-api/v3/using-api">Google: Indexing API</a>, <a href="https://developers.google.com/webmaster-tools/limits">Search Console API limits</a></li>
+<li><a href="https://yandex.ru/support/webmaster/ru/robot-workings/new-changed">Яндекс: как сообщить о новых и изменённых страницах</a></li>
+<li><a href="https://yandex.ru/support/webmaster/indexing-options/index-now.html">Яндекс: IndexNow</a>, <a href="https://yandex.ru/dev/webmaster/doc/ru/reference/host-recrawl-quota-get">квота переобхода в API</a></li>
+<li><a href="https://yandex.ru/support/webmaster/site-indexing/low-demand.html">Яндекс: малоценные или маловостребованные страницы</a></li>
+<li><a href="https://yandex.ru/support/webmaster/ru/controlling-robot/sitemap">Яндекс: Sitemap</a></li>
+<li><a href="https://neilpatel.com/marketing-stats/irrelevant-pages-aging-websites/">NP Digital: устаревание страниц</a>, <a href="https://www.animalz.co/blog/content-refresh">Animalz: content refresh</a>, <a href="https://www.shno.co/marketing-statistics/content-refresh-statistics">сводка статистики обновлений</a></li>
+<li><a href="https://callibri.ru/blog/kogda-nado-obnovlyat-kontent">Callibri: когда обновлять контент</a>, <a href="https://www.sostav.ru/blogs/294157/111150">Sostav: «малоценная» – не спешите переписывать</a></li>
+<li>Наш код: Автобалл scripts/indexnow.mjs (09.11.2026), EV Sibir scripts/deploy.py</li>
+</ul>
+</div>
+<script data-tema-v1>(function(){var b=document.createElement('button');b.id='tema-btn';b.type='button';
+function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.textContent=d?'☀':'☾';b.title=d?'Светлая тема':'Тёмная тема';b.setAttribute('aria-label',b.title)}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};
+upd();document.body.appendChild(b)})();</script></body>
+</html>
